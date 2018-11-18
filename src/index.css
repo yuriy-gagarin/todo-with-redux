@@ -12,3 +12,57 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+html {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  height: 100vh;
+}
+
+.App {
+  width: 300px;
+  margin: auto;
+  text-align: center;
+  background-color: #fefefe;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 10px;
+  line-height: 1.6em;
+}
+
+.Form {
+  border: none;
+  text-align: center;
+  font-size: 1.6em;
+  width: 100%;
+  padding: 10px;
+  padding-left: 4px;
+  box-sizing: border-box;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.List {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;  
+  font-size: 1.2em;
+  padding: 0 4px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.List > li {
+  padding: 2px 0;
+  border-bottom: 1px solid lightgray;
+  user-select: none;
+}
+
+.List > li:last-child {
+  border-bottom: 0;
+}
