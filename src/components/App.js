@@ -1,18 +1,12 @@
 import React from 'react'
 
-import Form from './Form'
-import List from './List'
-import Filters from './Filters'
-import Test from './Test'
+import queryString from 'query-string'
 
-const App = () => (
-  <div className='App'>
-    <Filters />
-    <Form />
-    <List />
+import Todos from './Todos'
 
-    {/* <Test /> */}
-  </div>
-)
+const App = ({location}) => {
+  const query = queryString.parse(location.search)
+  return <Todos {...query} />
+}
 
 export default App

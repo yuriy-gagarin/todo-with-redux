@@ -15,8 +15,3 @@ export const toggleItem = id => ({
   type: 'TOGGLE_ITEM',
   id
 })
-
-export const setFilter = filter => ({
-  type: 'SET_FILTER',
-  filter
-})
