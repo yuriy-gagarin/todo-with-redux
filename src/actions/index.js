@@ -1,10 +1,8 @@
-import store from '../store';
-
-let id = store.getState().length;
+import uuid from 'uuid/v1'
 
 export const addItem = text => ({
   type: 'ADD_ITEM',
-  id: id++,
+  id: uuid(),
   text
 })
 
@@ -16,4 +14,9 @@ export const removeItem = id => ({
 export const toggleItem = id => ({
   type: 'TOGGLE_ITEM',
   id
+})
+
+export const setFilter = filter => ({
+  type: 'SET_FILTER',
+  filter
 })

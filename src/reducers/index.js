@@ -1,4 +1,6 @@
-const reducer = (state = [], action) => {
+import { combineReducers } from 'redux'
+
+const todos = (state = [], action) => {
   switch (action.type) {
     case 'ADD_ITEM':
       return [
@@ -21,5 +23,19 @@ const reducer = (state = [], action) => {
       return state
   }
 }
+
+const filter = (state = 'SHOW_ALL', action) => {
+  switch (action.type) {
+    case 'SET_FILTER':
+      return action.filter
+    default:
+      return state
+  }
+}
+
+const reducer = combineReducers({
+  todos,
+  filter
+})
 
 export default reducer
