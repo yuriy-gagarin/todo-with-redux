@@ -1,22 +1,19 @@
-const todos = (state = [], action) => {
+import { omit, values } from 'lodash'
+
+const todos = (state = {}, action) => {
   switch (action.type) {
     case 'ADD_ITEM':
-      return [
+      return {
         ...state,
-        {
-          id: action.id,
-          text: action.text,
-          completed: false
-        }
-      ]
-    case 'REMOVE_ITEM':
-      return state.filter(
-        item => item.id !== action.id
-      )
+        [action.id]: { id: action.id, text: action.text, completed: false }
+      }
     case 'TOGGLE_ITEM':
-      return state.map(
-        item => item.id === action.id ? {...item, completed: !item.completed} : item
-      )
+      return {
+        ...state,
+        [action.id]: { ...state[action.id], completed: !state[action.id].completed }
+      }
+    case 'REMOVE_ITEM':
+      return omit(state, action.id)
     default:
       return state
   }
@@ -25,14 +22,15 @@ const todos = (state = [], action) => {
 export default todos
 
 export const getFilteredTodos = (state, filter) => {
+  const allTodos = values(state)
   switch (filter) {
     case 'all':
-      return state
+      return allTodos
     case 'active':
-      return state.filter(item => !item.completed)
+      return allTodos.filter(item => !item.completed)
     case 'completed':
-      return state.filter(item => item.completed)
+      return allTodos.filter(item => item.completed)
     default:
-      return state
+      return allTodos
   }
 }
