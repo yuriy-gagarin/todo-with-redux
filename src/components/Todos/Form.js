@@ -1,15 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addItem } from '../actions'
+import { addItem } from '../../actions'
 
-const Form = ({dispatch}) => {
+const Form = ({addItem}) => {
   let input
 
   const handleKeyDown = e => {
     if (e.key !== 'Enter') return
     e.preventDefault()
     if (!input.value.trim()) return
-    dispatch(addItem(input.value))
+    addItem(input.value)
     input.value = ''
   }
 
@@ -23,4 +23,4 @@ const Form = ({dispatch}) => {
   )
 }
 
-export default connect()(Form)
+export default connect(null, {addItem})(Form)

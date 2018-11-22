@@ -35,7 +35,7 @@ code {
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
-    "todo . ."
+    ". . ."
     "todo . ."
 }
 
@@ -100,8 +100,22 @@ code {
   opacity: .5;
 }
 
-.Filters > button{
-  margin-right: 10px;
+.Filters {
+  margin-left: 4px;
+}
+
+.filter-link {
+  margin-right: 4px;
+  transition: color .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.filter-link:active {
+  color: inherit;
+}
+
+.filter-link-current {
+  color: black;
+  text-decoration: none;
 }
 
 .slide-up {

@@ -6,7 +6,7 @@ import List from './List'
 
 const Todos = ({filter}) => (
   <div className='Todos panel'>
-    <Filters />
+    <Filters filter={filter || 'all'} />
     <Form />
     <List filter={filter || 'all'}/>
   </div>
