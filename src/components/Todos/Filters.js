@@ -1,5 +1,4 @@
 import React from 'react'
-import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import { setQueryParam, removeQueryParam } from '../../queryString'
 
@@ -26,4 +25,4 @@ const Filters = ({filter}) => (
   </div>  
 )
 
-export default withRouter(Filters)
+export default Filters
