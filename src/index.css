@@ -122,6 +122,14 @@ code {
   animation: slide-up 0.2s ease;
 }
 
+.spinning {
+  animation: spinning 4s infinite linear;
+}
+
+.loading-text {
+  padding-left: 10px;
+}
+
 @keyframes slide-up {
   0% {
     opacity: 0;
@@ -130,6 +138,15 @@ code {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes spinning {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 

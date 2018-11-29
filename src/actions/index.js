@@ -1,11 +1,16 @@
-import v4 from 'uuid/v4'
+import { normalize } from 'normalizr'
+import * as schema from './schema'
 import * as api from '../api'
+import { getIsFetching } from '../reducers'
 
-export const addItem = text => ({
-  type: 'ADD_ITEM',
-  id: v4(),
-  text
-})
+export const addItem = text => dispatch => {
+  api.addTodo(text).then(
+    response => dispatch({
+      type: 'ADD_ITEM_SUCCESS',
+      response: normalize(response, schema.todo)
+    })
+  )
+}
 
 export const removeItem = id => ({
   type: 'REMOVE_ITEM',
@@ -17,11 +22,25 @@ export const toggleItem = id => ({
   id
 })
 
-export const fetchItems = (filter) =>
-  api.fetchTodos(filter).then(response => receiveItems(filter, response))
+export const fetchItems = filter => (dispatch, getState) => {
+  if (getIsFetching(getState(), filter))
+    return Promise.resolve()
 
-const receiveItems = (filter, response) => ({
-  type: 'RECEIVE_ITEMS',
-  filter,
-  response
-})
+  dispatch({
+    type: 'FETCH_ITEMS_REQUEST',
+    filter
+  })
+
+  api.fetchTodos(filter).then(
+    response => dispatch({
+      type: 'FETCH_ITEMS_SUCCESS',
+      filter,
+      response: normalize(response, schema.arrayOfTodos)
+    }),
+    error => dispatch({
+      type: 'FETCH_ITEMS_ERROR',
+      filter,
+      errorMessage: error.message || ''
+    })
+  )
+}
