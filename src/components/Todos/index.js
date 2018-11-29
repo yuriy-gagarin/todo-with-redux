@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Filters from './Filters'
 import Form from './Form'
@@ -11,5 +12,9 @@ const Todos = ({filter}) => (
     <List filter={filter || 'all'}/>
   </div>
 )
+
+Filters.propTypes = {
+  filter: PropTypes.string.isRequired
+}
 
 export default Todos
