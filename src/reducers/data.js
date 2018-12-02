@@ -1,10 +1,12 @@
-import { assign } from 'lodash'
-
 const dataReducer = (state = {}, action) => {
-  if (action.response) {
-    return {...state, ...action.response.entities.todos}
+  switch (action.type) {
+    case 'FETCH_ITEMS_SUCCESS':
+    case 'ADD_ITEM_SUCCESS':
+    case 'TOGGLE_ITEM_SUCCESS':
+      return {...state, ...action.response.entities.todos}
+    default:
+      return state
   }
-  return state
 }
 
 export default dataReducer

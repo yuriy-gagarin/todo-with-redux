@@ -19,7 +19,7 @@ body {
   justify-content: flex-start;
   align-items: flex-end;
   flex-direction: row;
-  background: url(https://i.imgur.com/A2bpDAn.jpg);
+  background: url(https://source.unsplash.com/random/2000x2000?coffee,programming) no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -40,7 +40,7 @@ code {
 }
 
 .panel {
-  background-color: #fefefe;
+  background-color: rgba(255,255,255,0.66);
   padding: 4px;
   border-radius: 4px 4px 4px 4px;
   margin: 4px;

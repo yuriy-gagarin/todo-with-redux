@@ -1,12 +1,22 @@
 import { combineReducers } from 'redux'
 
 const createLookupReducer = filter => {
+  const toggle = (state, action) => {
+    const { result: toggleId, entities } = action.response
+    const { completed } = entities.todos[toggleId]
+    return (completed && filter === 'active') ||
+           (!completed && filter === 'completed') ?
+           state.filter(id => id !== toggleId) :
+           state
+  }
   const ids = (state = [], action) => {
     switch (action.type) {
       case 'FETCH_ITEMS_SUCCESS':
         return filter === action.filter ? action.response.result : state
       case 'ADD_ITEM_SUCCESS':
         return filter !== 'completed' ? [...state, action.response.result] : state
+      case 'TOGGLE_ITEM_SUCCESS':
+        return toggle(state, action)
       default:
         return state
     }

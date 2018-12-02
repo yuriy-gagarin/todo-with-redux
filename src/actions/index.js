@@ -17,10 +17,14 @@ export const removeItem = id => ({
   id
 })
 
-export const toggleItem = id => ({
-  type: 'TOGGLE_ITEM',
-  id
-})
+export const toggleItem = id => dispatch => {
+  api.toggleTodo(id).then(
+    response => dispatch({
+      type: 'TOGGLE_ITEM_SUCCESS',
+      response: normalize(response, schema.todo)
+    })
+  )
+}
 
 export const fetchItems = filter => (dispatch, getState) => {
   if (getIsFetching(getState(), filter))
