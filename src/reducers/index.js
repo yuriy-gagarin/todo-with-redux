@@ -12,20 +12,6 @@ const initialFetch = (state = true, action) => {
   }
 }
 
-const isFetching = (state = false, action) => {
-  switch (action.type) {
-    case 'FETCH_ITEMS_REQUEST':
-    case 'TOGGLE_ITEM_REQUEST':
-      return true
-    case 'FETCH_ITEMS_SUCCESS':
-    case 'TOGGLE_ITEM_SUCCESS':
-    case 'FETCH_ITEMS_ERROR':
-      return false
-    default:
-      return state
-  }
-}
-
 const todos = combineReducers({
   data: dataReducer,
   lookup: lookupReducer,
@@ -41,6 +27,9 @@ export const getFilteredTodos = (state, filter) => {
 
 export const getIsFetching = (state, filter) =>
   state.lookup[filter].isFetching
+
+export const getIsFetchingSomething = state =>
+  getIsFetching(state, 'all') || getIsFetching(state, 'active') || getIsFetching(state, 'completed')
 
 export const getErrorMessage = (state, filter) =>
   state.lookup[filter].errorMessage

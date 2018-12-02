@@ -1,7 +1,7 @@
 import v4 from 'uuid/v4'
 import { loadState, saveState } from '../localStorage'
 
-const DELAY = 500
+const DELAY = 200
 
 const fakeDatabase = {
   todos: loadState() || [],
