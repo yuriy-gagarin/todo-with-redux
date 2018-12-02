@@ -1,6 +1,8 @@
 import v4 from 'uuid/v4'
 import { loadState, saveState } from '../localStorage'
 
+const DELAY = 500
+
 const fakeDatabase = {
   todos: loadState() || [],
 };
@@ -8,7 +10,7 @@ const fakeDatabase = {
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 export const fetchTodos = (filter) => (
-  delay(100).then(() => {
+  delay(DELAY).then(() => {
     switch (filter) {
       case 'all':
         return fakeDatabase.todos
@@ -23,7 +25,7 @@ export const fetchTodos = (filter) => (
 )
 
 export const addTodo = text => (
-  delay(100).then(() => {
+  delay(DELAY).then(() => {
     const todo = {
       id: v4(),
       text,
@@ -36,7 +38,7 @@ export const addTodo = text => (
 )
 
 export const removeTodo = id => (
-  delay(100).then(() => {
+  delay(DELAY).then(() => {
     const todos = fakeDatabase.todos.filter(todo => todo.id === id)
     saveState(todos)
     return todos
@@ -44,7 +46,7 @@ export const removeTodo = id => (
 )
 
 export const toggleTodo = id => (
-  delay(100).then(() => {
+  delay(DELAY).then(() => {
     const todo = fakeDatabase.todos.find(todo => todo.id === id)
     todo.completed = !todo.completed
     saveState(fakeDatabase.todos)

@@ -6,7 +6,7 @@ import NoItems from './NoItems'
 import Loading from './Loading'
 import Error from './Error'
 import * as actions from '../../actions'
-import { getFilteredTodos, getIsFetching, getErrorMessage } from '../../reducers'
+import * as selectors from '../../reducers'
 
 const List = ({items, filter, handleClick}) => (
   items.length ?
@@ -20,7 +20,7 @@ const List = ({items, filter, handleClick}) => (
 
 const ListContainer = (props) => {
   const {fetchItems, removeItem, toggleItem} = props
-  const {isFetching, errorMessage, items, filter} = props
+  const {isFetching, initialFetch, errorMessage, items, filter} = props
 
   useEffect(() => {
     fetchItems(filter)
@@ -38,7 +38,7 @@ const ListContainer = (props) => {
     return <Error {...{errorMessage, retryFetch}}/>
   }
 
-  if ( isFetching && !items.length ) {
+  if ( (isFetching || initialFetch) && !items.length ) {
     return <Loading />
   } 
 
@@ -46,9 +46,10 @@ const ListContainer = (props) => {
 }
 
 const mapStateToProps = (state, {filter}) => ({
-  items: getFilteredTodos(state, filter),
-  isFetching: getIsFetching(state, filter),
-  errorMessage: getErrorMessage(state, filter)
+  items:        selectors.getFilteredTodos(state, filter),
+  isFetching:   selectors.getIsFetching(state, filter),
+  errorMessage: selectors.getErrorMessage(state, filter),
+  initialFetch: selectors.getIsInitialFetch(state)
 })
 
 export default connect(mapStateToProps, actions)(ListContainer)

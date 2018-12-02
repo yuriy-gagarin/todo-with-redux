@@ -2,9 +2,20 @@ import { combineReducers } from 'redux'
 import dataReducer, * as fromData from './data'
 import lookupReducer, * as fromLookup from './lookup'
 
+const initialFetch = (state = true, action) => {
+  switch (action.type) {
+    case 'FETCH_ITEMS_SUCCESS':
+    case 'FETCH_ITEMS_ERROR':
+      return false
+    default:
+      return state
+  }
+}
+
 const todos = combineReducers({
   data: dataReducer,
   lookup: lookupReducer,
+  initialFetch
 })
 
 export default todos
@@ -19,3 +30,6 @@ export const getIsFetching = (state, filter) =>
 
 export const getErrorMessage = (state, filter) =>
   state.lookup[filter].errorMessage
+
+export const getIsInitialFetch = (state) =>
+  state.initialFetch
