@@ -18,6 +18,11 @@ export const removeItem = id => ({
 })
 
 export const toggleItem = id => dispatch => {
+  dispatch({
+    type: 'TOGGLE_ITEM_REQUEST',
+    id
+  })
+  
   api.toggleTodo(id).then(
     response => dispatch({
       type: 'TOGGLE_ITEM_SUCCESS',

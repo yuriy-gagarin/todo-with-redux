@@ -49,6 +49,7 @@ code {
 }
 
 .Todos {
+  position: relative;
   grid-area: todo;
   max-height: 100vh;
   overflow-y: scroll;
@@ -128,6 +129,15 @@ code {
 
 .loading-text {
   padding-left: 10px;
+}
+
+.LoadingSpinner {
+  opacity: .5;
+  position: absolute;
+  width: 33px;
+  height: 33px;
+  right: 0;
+  bottom: 0;
 }
 
 @keyframes slide-up {

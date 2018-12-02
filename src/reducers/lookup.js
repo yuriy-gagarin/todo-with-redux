@@ -28,6 +28,7 @@ const createLookupReducer = filter => {
     }
     switch (action.type) {
       case 'FETCH_ITEMS_REQUEST':
+      case 'TOGGLE_ITEM_REQUEST':
         return true
       case 'FETCH_ITEMS_SUCCESS':
       case 'FETCH_ITEMS_ERROR':

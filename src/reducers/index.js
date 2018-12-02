@@ -12,6 +12,20 @@ const initialFetch = (state = true, action) => {
   }
 }
 
+const isFetching = (state = false, action) => {
+  switch (action.type) {
+    case 'FETCH_ITEMS_REQUEST':
+    case 'TOGGLE_ITEM_REQUEST':
+      return true
+    case 'FETCH_ITEMS_SUCCESS':
+    case 'TOGGLE_ITEM_SUCCESS':
+    case 'FETCH_ITEMS_ERROR':
+      return false
+    default:
+      return state
+  }
+}
+
 const todos = combineReducers({
   data: dataReducer,
   lookup: lookupReducer,
