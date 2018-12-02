@@ -1,55 +1,39 @@
-import { normalize } from 'normalizr'
-import * as schema from './schema'
+import { todo } from './types'
 import * as api from '../api'
-import { getIsFetching } from '../reducers'
+import { getIsFetchingByFilter } from '../reducers'
 
 export const addItem = text => dispatch => {
+  dispatch(todo.add.request(text))
+
   api.addTodo(text).then(
-    response => dispatch({
-      type: 'ADD_ITEM_SUCCESS',
-      response: normalize(response, schema.todo)
-    })
+    response => dispatch(todo.add.success(response))
   )
 }
 
-export const removeItem = id => ({
-  type: 'REMOVE_ITEM',
-  id
-})
+export const removeItem = id => dispatch => {
+  dispatch(todo.remove.request(id))
+
+  api.removeTodo(id).then(
+    response => dispatch(todo.remove.success(response))
+  )
+}
 
 export const toggleItem = id => dispatch => {
-  dispatch({
-    type: 'TOGGLE_ITEM_REQUEST',
-    id
-  })
+  dispatch(todo.toggle.request(id))
   
   api.toggleTodo(id).then(
-    response => dispatch({
-      type: 'TOGGLE_ITEM_SUCCESS',
-      response: normalize(response, schema.todo)
-    })
+    response => dispatch(todo.toggle.success(response))
   )
 }
 
 export const fetchItems = filter => (dispatch, getState) => {
-  if (getIsFetching(getState(), filter))
+  if (getIsFetchingByFilter(getState(), filter))
     return Promise.resolve()
 
-  dispatch({
-    type: 'FETCH_ITEMS_REQUEST',
-    filter
-  })
+  dispatch(todo.fetch.request(filter))
 
   api.fetchTodos(filter).then(
-    response => dispatch({
-      type: 'FETCH_ITEMS_SUCCESS',
-      filter,
-      response: normalize(response, schema.arrayOfTodos)
-    }),
-    error => dispatch({
-      type: 'FETCH_ITEMS_ERROR',
-      filter,
-      errorMessage: error.message || ''
-    })
+    response => dispatch(todo.fetch.success(filter, response)),
+    error => dispatch(todo.fetch.error(filter, error.message))
   )
 }

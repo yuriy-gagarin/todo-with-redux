@@ -1,21 +1,24 @@
 import { combineReducers } from 'redux'
+import { handleActions, combineActions } from 'redux-actions'
 import dataReducer, * as fromData from './data'
 import lookupReducer, * as fromLookup from './lookup'
+import { todo, request, success } from '../actions/types'
 
-const initialFetch = (state = true, action) => {
-  switch (action.type) {
-    case 'FETCH_ITEMS_SUCCESS':
-    case 'FETCH_ITEMS_ERROR':
-      return false
-    default:
-      return state
-  }
-}
+const initialFetch = handleActions({
+  [combineActions(todo.fetch.success, todo.fetch.error)]:
+    (state, action) => false
+}, true)
+
+const isFetching = handleActions({
+  [request]: (state, action) => true,
+  [success]: (state, action) => false
+}, false)
 
 const todos = combineReducers({
   data: dataReducer,
   lookup: lookupReducer,
-  initialFetch
+  initialFetch,
+  isFetching
 })
 
 export default todos
@@ -25,11 +28,11 @@ export const getFilteredTodos = (state, filter) => {
   return ids.map(id => fromData.getItem(state.data, id))
 }
 
-export const getIsFetching = (state, filter) =>
+export const getIsFetchingByFilter = (state, filter) =>
   state.lookup[filter].isFetching
 
 export const getIsFetchingSomething = state =>
-  getIsFetching(state, 'all') || getIsFetching(state, 'active') || getIsFetching(state, 'completed')
+  state.isFetching
 
 export const getErrorMessage = (state, filter) =>
   state.lookup[filter].errorMessage

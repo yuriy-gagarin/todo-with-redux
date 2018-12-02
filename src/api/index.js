@@ -39,9 +39,10 @@ export const addTodo = text => (
 
 export const removeTodo = id => (
   delay(DELAY).then(() => {
-    const todos = fakeDatabase.todos.filter(todo => todo.id === id)
-    saveState(todos)
-    return todos
+    const todo = fakeDatabase.todos.find(todo => todo.id === id)
+    fakeDatabase.todos = fakeDatabase.todos.filter(todo => todo.id !== id)
+    saveState(fakeDatabase.todos)
+    return todo
   })
 )
 

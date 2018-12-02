@@ -47,7 +47,7 @@ const ListContainer = (props) => {
 
 const mapStateToProps = (state, {filter}) => ({
   items:        selectors.getFilteredTodos(state, filter),
-  isFetching:   selectors.getIsFetching(state, filter),
+  isFetching:   selectors.getIsFetchingByFilter(state, filter),
   errorMessage: selectors.getErrorMessage(state, filter),
   initialFetch: selectors.getIsInitialFetch(state)
 })

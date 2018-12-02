@@ -1,13 +1,13 @@
-const dataReducer = (state = {}, action) => {
-  switch (action.type) {
-    case 'FETCH_ITEMS_SUCCESS':
-    case 'ADD_ITEM_SUCCESS':
-    case 'TOGGLE_ITEM_SUCCESS':
-      return {...state, ...action.response.entities.todos}
-    default:
-      return state
-  }
-}
+import { omit } from 'lodash'
+import { handleActions, combineActions } from 'redux-actions'
+import { todo } from '../actions/types'
+
+const dataReducer = handleActions({
+  [combineActions(todo.fetch.success, todo.add.success, todo.toggle.success)]:
+    (state, action) => ({ ...state, ...action.payload.entities.todos }),
+  [todo.remove.success]:
+    (state, action) => state
+}, {})
 
 export default dataReducer
 

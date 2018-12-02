@@ -1,57 +1,44 @@
+import { without } from 'lodash'
 import { combineReducers } from 'redux'
+import { handleActions, combineActions } from 'redux-actions'
+import { todo } from '../actions/types'
 
 const createLookupReducer = filter => {
   const toggle = (state, action) => {
-    const { result: toggleId, entities } = action.response
+    const { result: toggleId, entities } = action.payload
     const { completed } = entities.todos[toggleId]
     return (completed && filter === 'active') ||
            (!completed && filter === 'completed') ?
            state.filter(id => id !== toggleId) :
            state
   }
-  const ids = (state = [], action) => {
-    switch (action.type) {
-      case 'FETCH_ITEMS_SUCCESS':
-        return filter === action.filter ? action.response.result : state
-      case 'ADD_ITEM_SUCCESS':
-        return filter !== 'completed' ? [...state, action.response.result] : state
-      case 'TOGGLE_ITEM_SUCCESS':
-        return toggle(state, action)
-      default:
-        return state
-    }
-  }
 
-  const isFetching = (state = false, action) => {
-    if (action.filter !== filter) {
-      return state
-    }
-    switch (action.type) {
-      case 'FETCH_ITEMS_REQUEST':
-      case 'TOGGLE_ITEM_REQUEST':
-        return true
-      case 'FETCH_ITEMS_SUCCESS':
-      case 'FETCH_ITEMS_ERROR':
-        return false
-      default:
-        return state
-    }
-  }
+  const validFilter = (filter, action) => filter === action.payload.filter
 
-  const errorMessage = (state = null, action) => {
-    if (action.filter !== filter) {
-      return state
-    }
-    switch (action.type) {
-      case 'FETCH_ITEMS_REQUEST':
-      case 'FETCH_ITEMS_SUCCESS':
-        return null
-      case 'FETCH_ITEMS_ERROR':
-        return action.errorMessage
-      default: 
-        return state
-    }
-  }
+  const ids = handleActions({
+    [todo.fetch.success]:
+      (state, action) => validFilter(filter, action) ? action.payload.result : state,
+    [todo.add.success]:
+      (state, action) => filter !== 'completed' ? [...state, action.payload.result] : state,
+    [todo.toggle.success]:
+      toggle,
+    [todo.remove.success]:
+      (state, action) => without(state, ...action.payload.result)
+  }, [])
+
+  const isFetching = handleActions({
+    [combineActions(todo.fetch.request, todo.toggle.request)]:
+      (state, action) => validFilter(filter, action) ? true : state,
+    [combineActions(todo.fetch.success, todo.fetch.error)]:
+      (state, action) => validFilter(filter, action) ? false : state
+  }, false)
+
+  const errorMessage = handleActions({
+    [combineActions(todo.fetch.request, todo.fetch.success)]:
+      (state, action) => validFilter(filter, action) ? null : state,
+    [todo.fetch.error]:
+      (state, action) => validFilter(filter, action) ? action.payload.errorMessage : state
+  }, null)
 
   return combineReducers({
     ids,
