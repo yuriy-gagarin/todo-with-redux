@@ -5,8 +5,8 @@ import Item from './Item'
 import NoItems from './NoItems'
 import Loading from './Loading'
 import Error from './Error'
-import * as actions from '../../actions/thunks'
-import * as selectors from '../../reducers'
+
+import { operations, selectors } from '../../state/todos'
 
 const List = ({items, filter, handleClick}) => (
   items.length ?
@@ -52,4 +52,4 @@ const mapStateToProps = (state, {filter}) => ({
   initialFetch: selectors.getIsInitialFetch(state)
 })
 
-export default connect(mapStateToProps, actions)(ListContainer)
+export default connect(mapStateToProps, operations)(ListContainer)

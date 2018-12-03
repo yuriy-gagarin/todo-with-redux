@@ -1,7 +1,8 @@
-import { without } from 'lodash'
 import { combineReducers } from 'redux'
 import { handleActions, combineActions } from 'redux-actions'
-import { todo } from '../actions'
+import { todo, request, success } from './actions'
+
+import { omit, without } from 'lodash'
 
 const createLookupReducer = filter => {
   const toggle = (state, action) => {
@@ -47,13 +48,33 @@ const createLookupReducer = filter => {
   })
 }
 
-const lookupReducer = combineReducers({
+const lookup = combineReducers({
   all:       createLookupReducer('all'),
   active:    createLookupReducer('active'),
   completed: createLookupReducer('completed')
 })
 
-export default lookupReducer
+const data = handleActions({
+  [combineActions(todo.fetch.success, todo.add.success, todo.toggle.success)]:
+    (state, action) => ({ ...state, ...action.payload.entities.todos }),
+  [todo.remove.success]:
+    (state, action) => omit(state, action.payload.entities.todos)
+}, {})
 
-export const getIds = (state, filter) => state[filter].ids
-export const getIsFetching = (state, filter) => state[filter].isFetching
+const initialFetch = handleActions({
+  [combineActions(todo.fetch.success, todo.fetch.error)]: () => false
+}, true)
+
+const isFetching = handleActions({
+  [request]: () => true,
+  [success]: () => false
+}, false)
+
+const todos = combineReducers({
+  data,
+  lookup,
+  initialFetch,
+  isFetching
+})
+
+export default todos

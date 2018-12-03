@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as selectors from '../../reducers'
+import { selectors } from '../../state/todos'
 
 const LoadingSpinner = ({isFetching, initialFetch}) => (
   (isFetching || initialFetch) ?

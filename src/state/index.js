@@ -1,15 +1,13 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
-import reducer from './reducers'
+import todos from './todos'
 
-// const thunk = store => next => action => (
-//   typeof action === 'function' ?
-//     action(store.dispatch, store.getState) :
-//     next(action) 
-// )
-
-const configureStore = () => {
+export default function configureStore() {
+  const reducer = combineReducers({
+    todos
+  })
+  
   const middlewares = [
     thunk,
   ]
@@ -27,5 +25,3 @@ const configureStore = () => {
     composeEnhancer(applyMiddleware(...middlewares)),
   )
 }
-
-export default configureStore

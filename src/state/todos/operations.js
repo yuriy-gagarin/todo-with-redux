@@ -1,6 +1,6 @@
-import { todo } from '.'
-import * as api from '../api'
-import { getIsFetchingByFilter } from '../reducers'
+import * as api from '../../api'
+import { todo } from './actions'
+import { getIsFetchingByFilter } from './selectors'
 
 export const addItem = text => dispatch => {
   dispatch(todo.add.request(text))
