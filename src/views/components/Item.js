@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 const Item = ({text, completed, onClick}) => (
   <li
@@ -12,11 +11,5 @@ const Item = ({text, completed, onClick}) => (
     {text}
   </li>
 )
-
-Item.propTypes = {
-  text:      PropTypes.string.isRequired,
-  completed: PropTypes.bool.isRequired,
-  onClick:   PropTypes.func.isRequired
-}
 
 export default Item

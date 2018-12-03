@@ -1,9 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { setQueryParam, removeQueryParam } from '../../queryString'
 
-const Filters = ({filter}) => (
+const Links = ({filter, removeQueryParam, setQueryParam}) => (
   <div className='Filters'>
     <Link
       className={'filter-link ' + (filter === 'all' ? 'filter-link-current' : '')}
@@ -26,8 +24,4 @@ const Filters = ({filter}) => (
   </div>  
 )
 
-Filters.propTypes = {
-  filter: PropTypes.string.isRequired
-}
-
-export default Filters
+export default Links

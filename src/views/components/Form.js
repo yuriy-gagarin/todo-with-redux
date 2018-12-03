@@ -1,7 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { operations } from '../../state/todos'
 
 const Form = ({addItem}) => {
   let input
@@ -24,8 +21,4 @@ const Form = ({addItem}) => {
   )
 }
 
-Form.propTypes = {
-  addItem: PropTypes.func.isRequired
-}
-
-export default connect(null, operations)(Form)
+export default Form

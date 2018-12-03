@@ -1,24 +1,11 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
 
 import Item from './Item'
-import NoItems from './NoItems'
-import Loading from './Loading'
 import Error from './Error'
+import Loading from './Loading'
+import NoItems from './NoItems'
 
-import { operations, selectors } from '../../state/todos'
-
-const List = ({items, filter, handleClick}) => (
-  items.length ?
-  <ul className='List slideup'>{
-    items.map(
-      item => <Item {...item} key={item.id} onClick={e => handleClick(e, item.id)} />
-    )
-  }</ul> :
-  <NoItems filter={filter} />
-)
-
-const ListContainer = (props) => {
+const List = (props) => {
   const {fetchItems, removeItem, toggleItem} = props
   const {isFetching, initialFetch, errorMessage, items, filter} = props
 
@@ -34,22 +21,18 @@ const ListContainer = (props) => {
     fetchItems(filter)
   }
 
-  if ( errorMessage && !items.length ) {
-    return <Error {...{errorMessage, retryFetch}}/>
+  if (items.length) {
+    const _items = items.map(
+      item => <Item {...item} key={item.id} onClick={e => handleClick(e, item.id)} />
+    )
+    return <ul className='List slideup'>{_items}</ul>
+  } else {
+    if (errorMessage)
+      return <Error {...{errorMessage, retryFetch}}/>
+    if (isFetching || initialFetch)
+      return <Loading />
+    return <NoItems filter={filter} />
   }
-
-  if ( (isFetching || initialFetch) && !items.length ) {
-    return <Loading />
-  } 
-
-  return <List {...{items, filter, handleClick}} />
 }
 
-const mapStateToProps = (state, {filter}) => ({
-  items:        selectors.getFilteredTodos(state, filter),
-  isFetching:   selectors.getIsFetchingByFilter(state, filter),
-  errorMessage: selectors.getErrorMessage(state, filter),
-  initialFetch: selectors.getIsInitialFetch(state)
-})
-
-export default connect(mapStateToProps, operations)(ListContainer)
+export default List
