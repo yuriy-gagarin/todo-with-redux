@@ -1,26 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import Item from './Item'
-import Error from './Error'
-import Loading from './Loading'
-import NoItems from './NoItems'
+import Item from '../components/Item'
+import Error from '../components/Error'
+import Loading from '../components/Loading'
+import NoItems from '../components/NoItems'
 
-const List = (props) => {
-  const {fetchItems, removeItem, toggleItem} = props
-  const {isFetching, initialFetch, errorMessage, items, filter} = props
-
-  useEffect(() => {
-    fetchItems(filter)
-  }, [filter])
-
-  const handleClick = (e, id) => {
-    e.shiftKey ? removeItem(id) : toggleItem(id)
-  }
-
-  const retryFetch = () => {
-    fetchItems(filter)
-  }
-
+const List = ({items, handleClick, errorMessage, retryFetch, isFetching, initialFetch, filter}) => {
   if (items.length) {
     const _items = items.map(
       item => <Item {...item} key={item.id} onClick={e => handleClick(e, item.id)} />
