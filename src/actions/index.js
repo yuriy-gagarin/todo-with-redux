@@ -1,39 +1,45 @@
-import { todo } from './types'
-import * as api from '../api'
-import { getIsFetchingByFilter } from '../reducers'
+import { createActions, combineActions } from 'redux-actions'
+import { normalize, schema } from 'normalizr'
 
-export const addItem = text => dispatch => {
-  dispatch(todo.add.request(text))
+const _todo = new schema.Entity('todos')
+const arrayOfTodos = new schema.Array(_todo)
 
-  api.addTodo(text).then(
-    response => dispatch(todo.add.success(response))
-  )
-}
+export const { todo } = createActions({
+  TODO: {
+    ADD: {
+      REQUEST: text => ({ text }),
+      SUCCESS: response => ({ ...normalize(response, _todo) })
+    },
+    REMOVE: {
+      REQUEST: id => ({ id }),
+      SUCCESS: response => ({ ...normalize(response, arrayOfTodos) })
+    },
+    TOGGLE: {
+      REQUEST: id => ({ id }),
+      SUCCESS: response => ({ ...normalize(response, _todo) })
+    },
+    FETCH: {
+      REQUEST: filter => ({ filter }),
+      SUCCESS: (filter, response) => ({ filter, ...normalize(response, arrayOfTodos) }),
+      ERROR: (filter, errorMessage = '') => ({ filter, errorMessage }),
+    }
+  }
+})
 
-export const removeItem = id => dispatch => {
-  dispatch(todo.remove.request(id))
+export const request = combineActions(
+  todo.add.request,
+  todo.remove.request,
+  todo.toggle.request,
+  todo.fetch.request
+)
 
-  api.removeTodo(id).then(
-    response => dispatch(todo.remove.success(response))
-  )
-}
+export const success = combineActions(
+  todo.add.success,
+  todo.remove.success,
+  todo.toggle.success,
+  todo.fetch.success
+)
 
-export const toggleItem = id => dispatch => {
-  dispatch(todo.toggle.request(id))
-  
-  api.toggleTodo(id).then(
-    response => dispatch(todo.toggle.success(response))
-  )
-}
-
-export const fetchItems = filter => (dispatch, getState) => {
-  if (getIsFetchingByFilter(getState(), filter))
-    return Promise.resolve()
-
-  dispatch(todo.fetch.request(filter))
-
-  api.fetchTodos(filter).then(
-    response => dispatch(todo.fetch.success(filter, response)),
-    error => dispatch(todo.fetch.error(filter, error.message))
-  )
-}
+export const error = combineActions(
+  todo.fetch.error
+)

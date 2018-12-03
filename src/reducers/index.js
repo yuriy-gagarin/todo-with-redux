@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { handleActions, combineActions } from 'redux-actions'
 import dataReducer, * as fromData from './data'
 import lookupReducer, * as fromLookup from './lookup'
-import { todo, request, success } from '../actions/types'
+import { todo, request, success } from '../actions'
 
 const initialFetch = handleActions({
   [combineActions(todo.fetch.success, todo.fetch.error)]:

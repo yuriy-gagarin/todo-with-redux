@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { addItem } from '../../actions'
+import { addItem } from '../../actions/thunks'
 
 const Form = ({addItem}) => {
   let input

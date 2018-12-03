@@ -1,6 +1,5 @@
-import { omit } from 'lodash'
 import { handleActions, combineActions } from 'redux-actions'
-import { todo } from '../actions/types'
+import { todo } from '../actions'
 
 const dataReducer = handleActions({
   [combineActions(todo.fetch.success, todo.add.success, todo.toggle.success)]:

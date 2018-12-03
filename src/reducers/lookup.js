@@ -1,7 +1,7 @@
 import { without } from 'lodash'
 import { combineReducers } from 'redux'
 import { handleActions, combineActions } from 'redux-actions'
-import { todo } from '../actions/types'
+import { todo } from '../actions'
 
 const createLookupReducer = filter => {
   const toggle = (state, action) => {

@@ -5,7 +5,7 @@ import Item from './Item'
 import NoItems from './NoItems'
 import Loading from './Loading'
 import Error from './Error'
-import * as actions from '../../actions'
+import * as actions from '../../actions/thunks'
 import * as selectors from '../../reducers'
 
 const List = ({items, filter, handleClick}) => (
