@@ -2,10 +2,12 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 import todos from './todos'
+import weather from './weather'
 
 export default function configureStore() {
   const reducer = combineReducers({
-    todos
+    todos,
+    weather
   })
   
   const middlewares = [

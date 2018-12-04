@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { selectors } from '../../../state/todos'
-import { operations } from '../../../state/todos'
-import { setQueryParam, removeQueryParam } from '../../../queryString'
+import { selectors } from 'state/todos'
+import { operations } from 'state/todos'
+import { setQueryParam, removeQueryParam } from 'queryString'
 
 import List from './List'
 import Form from '../components/Form'
