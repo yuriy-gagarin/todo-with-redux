@@ -2,7 +2,7 @@ import React from 'react'
 
 import queryString from 'query-string'
 
-import Todos from './containers/Todos'
+import Todos from './todos'
 
 const validateFilter = filter => {
   const filters = ['all', 'active', 'completed']

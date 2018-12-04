@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { selectors } from '../../state/todos'
-import { operations } from '../../state/todos'
+import { selectors } from '../../../state/todos'
+import { operations } from '../../../state/todos'
 
 import List from '../components/List'
 

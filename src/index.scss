@@ -5,7 +5,7 @@ html, body {
   width: 100%;
 }
 
-* {
+*, *::after, *::before {
   box-sizing: border-box;
 }
 
@@ -15,12 +15,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-  flex-direction: row;
-  background: url(https://source.unsplash.com/random/2000x2000?coffee,programming) no-repeat center center fixed;
+  background: url(https://source.unsplash.com/random/1000x1000) no-repeat center center fixed;
   background-size: cover;
+  
 }
 
 code {
@@ -79,26 +76,23 @@ code {
   font-size: 1.2em;
   padding: 0 4px;
   text-align: left;
-}
-
-.List > li {
-  padding: 2px 0;
-  border-bottom: 1px solid lightgray;
-  user-select: none;
-}
-
-.List > li:last-child {
-  border-bottom: 0;
+  li {
+    padding: 2px 0;
+    border-bottom: 1px solid lightgray;
+    user-select: none;
+  }
+  li:last-child {
+    border-bottom: 0;
+  }
 }
 
 .no-todos {
   text-align: center;
   color: gray;
   font-size: 1.4em;
-}
-
-.no-todos > img {
-  opacity: .5;
+  img {
+    opacity: .5;
+  }
 }
 
 .Filters {
@@ -157,15 +151,5 @@ code {
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-@media only screen and (max-width: 700px) {
-  body {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-  }
-  .App {
-    max-height: 80vh;
   }
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 
-import Item from '../components/Item'
-import Error from '../components/Error'
-import Loading from '../components/Loading'
-import NoItems from '../components/NoItems'
+import Item from './Item'
+import Error from './Error'
+import Loading from './Loading'
+import NoItems from './NoItems'
 
 const List = ({items, handleClick, errorMessage, retryFetch, isFetching, initialFetch, filter}) => {
   if (items.length) {

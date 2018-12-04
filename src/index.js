@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import configureStore from './state'
 import App from './views/App'
 
-import './index.css'
+import './index.scss'
 
 const Root = ({store}) => (
   <Provider store={store}>
