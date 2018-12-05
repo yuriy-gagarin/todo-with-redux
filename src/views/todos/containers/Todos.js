@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { selectors } from 'state/todos'
-import { operations } from 'state/todos'
-import { setQueryParam, removeQueryParam } from 'queryString'
+import { selectors } from '@state/todos'
+import { operations } from '@state/todos'
+import { setQueryParam, removeQueryParam } from '@utils/queryString'
 
 import List from './List'
 import Form from '../components/Form'
@@ -20,11 +20,11 @@ const Todos = ({isFetching, initialFetch, filter, removeQueryParam, setQueryPara
   )
 }
 
-const mapStateToProps = (state, {filter}) => ({
+const props = (state, {filter}) => ({
   isFetching:       selectors.getIsFetchingSomething(state),
   initialFetch:     selectors.getIsInitialFetch(state),
   setQueryParam:    setQueryParam,
   removeQueryParam: removeQueryParam
 })
 
-export default connect(mapStateToProps, operations)(Todos)
+export default connect(props, operations)(Todos)

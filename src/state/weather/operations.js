@@ -1,7 +1,11 @@
 import { weather } from './actions'
-import * as api from 'api/weather'
+import * as api from '@api/weather'
+import { getIsFetching } from './selectors'
 
-export const fetchWeather = query => dispatch => {
+export const fetchWeather = query => (dispatch, getState) => {
+  if (getIsFetching(getState()))
+    return Promise.resolve()
+
   dispatch(weather.fetch.request(query))
 
   api.fetchWeather(query).then(

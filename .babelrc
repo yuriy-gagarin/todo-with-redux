@@ -4,7 +4,13 @@
   ],
   "plugins": [
     ["module-resolver", {
-      "root": ["./src"]
+      "root": ["./src"],
+      "alias": {
+        "@api": ["./src/api"],
+        "@state": ["./src/state"],
+        "@views": ["./src/views"],
+        "@utils": ["./src/utils"]
+      }
     }]
   ]
 }

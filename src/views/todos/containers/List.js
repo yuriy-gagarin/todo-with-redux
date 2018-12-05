@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { selectors } from 'state/todos'
-import { operations } from 'state/todos'
+import { selectors } from '@state/todos'
+import { operations } from '@state/todos'
 
 import List from '../components/List'
 
@@ -23,11 +23,11 @@ const ListContainer = (props) => {
   return <List {...{filter, handleClick, retryFetch, ...rest}} />
 }
 
-const mapStateToProps = (state, {filter}) => ({
+const props = (state, {filter}) => ({
   isFetching:   selectors.getIsFetchingSomething(state),
   initialFetch: selectors.getIsInitialFetch(state),
   errorMessage: selectors.getErrorMessage(state, filter),
   items:        selectors.getFilteredTodos(state, filter)
 })
 
-export default connect(mapStateToProps, operations)(ListContainer)
+export default connect(props, operations)(ListContainer)

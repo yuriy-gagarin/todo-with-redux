@@ -1,4 +1,4 @@
-import * as api from 'api/todos'
+import * as api from '@api/todos'
 import { todo } from './actions'
 import { getIsFetchingByFilter } from './selectors'
 

@@ -1,5 +1,5 @@
 import v4 from 'uuid/v4'
-import { loadState, saveState } from '../localStorage'
+import { loadState, saveState } from '@utils/localStorage'
 
 const DELAY = 200
 

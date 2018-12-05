@@ -15,9 +15,47 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url(https://source.unsplash.com/random/1000x1000) no-repeat center center fixed;
+  background: url(https://source.unsplash.com/random/1000x1000/) no-repeat center center fixed;
+  background-color: rgb(0, 0, 0);
+  // background-size: auto 100%;
   background-size: cover;
   
+}
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+
+      font-size: $min-font-size;
+      @media screen and (min-width: $min-vw) {
+        font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+      }
+
+      @media screen and (min-width: $max-vw) {
+        font-size: $max-font-size;
+      }
+    }
+  }
+}
+
+$min_width: 320px;
+$max_width: 1000px;
+$min_font: 16px;
+$max_font: 22px;
+
+$spinner_size: 2em;
+
+html {
+  @include fluid-type($min_width, $max_width, $min_font, $max_font);
 }
 
 code {
@@ -30,10 +68,9 @@ code {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr;
   grid-template-areas:
-    "todo . ."
-    "todo . ."
+    "weather . todo"
 }
 
 .panel {
@@ -45,6 +82,18 @@ code {
   transition: all ease;
 }
 
+%input-form {
+  border: none;
+  text-align: center;
+  font-size: 1em;
+  width: 100%;
+  padding: 5px;
+  padding-left: 4px;
+  margin: 0;
+  text-align: left;
+  border-radius: 4px;
+}
+
 .Todos {
   position: relative;
   grid-area: todo;
@@ -54,18 +103,62 @@ code {
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
+  .Form {
+    @extend %input-form;
+    margin: 5px 0;
+  }
 }
 
-.Form {
-  border: none;
+.Weather {
+  position: relative;
+  grid-area: weather;
+  max-height: 100vh;
   text-align: center;
-  font-size: 1.6em;
-  width: 100%;
-  padding: 5px;
-  padding-left: 4px;
-  margin: 5px 0;
-  text-align: left;
-  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  .Form {
+    @extend %input-form;
+    margin-top: 5px;
+  }
+  .Info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    .weather-title {
+      margin: 0;
+      padding: 0;
+      line-height: 1.2em;
+      font-size: 1em;
+      font-weight: normal;
+    }
+    .weather-data {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      text-align: left;        
+    }
+    .weather-icon {
+      width: 100px;
+      height: 100px;
+    }
+    .weather-info {
+      p {
+        margin: 0;
+        padding: 0;
+        font-size: 0.8em;
+        line-height: 1.5em;
+      }
+      p.temperature {
+        font-size: 2em;
+        line-height: 1em;
+      }
+    }
+  }
 }
 
 .List {
@@ -73,7 +166,6 @@ code {
   margin: 0;
   padding: 0;
   width: 100%;  
-  font-size: 1.2em;
   padding: 0 4px;
   text-align: left;
   li {
@@ -89,7 +181,7 @@ code {
 .no-todos {
   text-align: center;
   color: gray;
-  font-size: 1.4em;
+  font-size: 1.2em;
   img {
     opacity: .5;
   }
@@ -128,8 +220,8 @@ code {
 .LoadingSpinner {
   opacity: .5;
   position: absolute;
-  width: 33px;
-  height: 33px;
+  width: $spinner_size;
+  height: $spinner_size;
   right: 0;
   bottom: 0;
 }
