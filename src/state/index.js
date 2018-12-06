@@ -20,7 +20,8 @@ export default function configureStore() {
     )
   }
 
-  const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  const composeEnhancer = process.env.NODE_ENV !== 'production' ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : compose
 
   return createStore(
     reducer,

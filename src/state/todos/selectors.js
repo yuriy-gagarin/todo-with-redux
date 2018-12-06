@@ -1,20 +1,23 @@
-export const getTodo = (state, id) =>
+export const todo = (state, id) =>
   state.todos.data[id]
 
-export const getIds = (state, filter) =>
+export const ids = (state, filter) =>
   state.todos.lookup[filter].ids
 
-export const getFilteredTodos = (state, filter) =>
-  state.todos.lookup[filter].ids.map(id => state.todos.data[id])
+export const filter = (state) =>
+  state.todos.filter
 
-export const getIsFetchingByFilter = (state, filter) =>
+export const filteredTodos = (state, filter) =>
+  ids(state, filter).map(id => todo(state, id))
+
+export const isFetchingByFilter = (state, filter) =>
   state.todos.lookup[filter].isFetching
 
-export const getIsFetchingSomething = state =>
+export const isFetchingSomething = state =>
   state.todos.isFetching
 
-export const getErrorMessage = (state, filter) =>
+export const errorMessage = (state, filter) =>
   state.todos.lookup[filter].errorMessage
 
-export const getIsInitialFetch = (state) =>
+export const isInitialFetch = (state) =>
   state.todos.initialFetch

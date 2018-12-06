@@ -1,6 +1,6 @@
 import * as api from '@api/todos'
 import { todo } from './actions'
-import { getIsFetchingByFilter } from './selectors'
+import { isFetchingByFilter } from './selectors'
 
 export const addItem = text => dispatch => {
   dispatch(todo.add.request(text))
@@ -27,7 +27,7 @@ export const toggleItem = id => dispatch => {
 }
 
 export const fetchItems = filter => (dispatch, getState) => {
-  if (getIsFetchingByFilter(getState(), filter))
+  if (isFetchingByFilter(getState(), filter))
     return Promise.resolve()
 
   dispatch(todo.fetch.request(filter))
@@ -37,3 +37,5 @@ export const fetchItems = filter => (dispatch, getState) => {
     error => dispatch(todo.fetch.error(filter, error.message))
   )
 }
+
+export const switchFilter = todo.switchFilter

@@ -14,7 +14,7 @@ const App = ({location}) => {
   const query = queryString.parse(location.search)
   return (
     <>
-    <Todos {...query} filter={validateFilter(query.filter)} />
+    <Todos {...query} />
     <Weather />
     </>
   )

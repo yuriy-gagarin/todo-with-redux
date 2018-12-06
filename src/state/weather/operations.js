@@ -1,9 +1,9 @@
 import { weather } from './actions'
 import * as api from '@api/weather'
-import { getIsFetching } from './selectors'
+import { isFetching } from './selectors'
 
 export const fetchWeather = query => (dispatch, getState) => {
-  if (getIsFetching(getState()))
+  if (isFetching(getState()))
     return Promise.resolve()
 
   dispatch(weather.fetch.request(query))

@@ -1,46 +1,56 @@
 import { createSelector } from 'reselect'
 import { toCelsius, toFahrenheit } from '@utils/tempScales'
 
-export const getIsFetching = (state) =>
+const _default = {}
+
+export const isFetching = state =>
   state.weather.isFetching
 
-export const getIsFetched = state =>
+export const isFetched = state =>
   state.weather.isFetched
 
-export const getTempScale = state =>
+export const scale = state =>
   state.weather.scale
 
-export const getLocationName = (state) =>
-  state.weather.data.name
+export const data = state =>
+  state.weather.data || _default
 
-export const getCountryCode = state =>
-  state.weather.data['sys.country']
+export const weather = state =>
+  data(state).weather
 
-export const getCoordinates = (state) =>
-  state.weather.data.coord
+export const name = state =>
+  data(state).name
 
-export const getTemperature = state => {
-  const temp = state.weather.data['main.temp']
-  switch (getTempScale(state)) {
-    case 'K':
-      return temp
-    case 'C':
-      return toCelsius(temp)
-    case 'F':
-      return toFahrenheit(temp)
-    default:
-      return temp
-  }
-}
+export const countryCode = state =>
+  data(state)['sys.country']
 
-export const getClouds = state =>
-  state.weather.data['clouds.all']
+export const longitude = state =>
+  data(state)['coord.lon']
 
-export const getWindSpeed = state =>
-  state.weather.data['wind.speed']
+export const latitude = state =>
+  data(state)['coord.lat']
 
-export const getWeatherImage = state =>
-  state.weather.data['weather.0.icon']
+export const temperature = state =>
+  data(state)['main.temp']
 
-export const getWeatherDesc = state =>
-  state.weather.data['weather.0.main']
+export const convertedTemperature = (state, scale) =>
+  scale === 'C' ?
+    toCelsius(temperature(state)) : 
+  scale === 'F' ?
+    toFahrenheit(temperature(state)) :
+    temperature(state)
+
+export const pressure = state =>
+  data(state)['main.pressure']
+
+export const humidity = state =>
+  data(state)['main.humidity']
+
+export const clouds = state =>
+  data(state)['clouds.all']
+
+export const windSpeed = state =>
+  data(state)['wind.speed']
+
+export const windDirection = state =>
+  data(state)['wind.deg']

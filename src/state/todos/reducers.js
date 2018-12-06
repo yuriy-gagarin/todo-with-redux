@@ -70,11 +70,18 @@ const isFetching = handleActions({
   [success]: () => false
 }, false)
 
+const filter = handleActions({
+  [todo.switchFilter]:
+    (state, {payload: {filter}}) =>
+      filter && ['all', 'active', 'completed'].includes(filter) ? filter : 'all'
+}, 'all')
+
 const todos = combineReducers({
   data,
   lookup,
   initialFetch,
-  isFetching
+  isFetching,
+  filter,
 })
 
 export default todos

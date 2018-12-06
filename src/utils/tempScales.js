@@ -1,5 +1,5 @@
 export const toCelsius = kelvins =>
-  kelvins - 273.15
+  Math.round(kelvins - 273.15)
 
 export const toFahrenheit = kelvins =>
-  toCelsius(kelvins) * 9/5 + 32
+  Math.round(toCelsius(kelvins) * 9/5 + 32)

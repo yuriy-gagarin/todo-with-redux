@@ -8,21 +8,22 @@ export const { todo } = createActions({
   TODO: {
     ADD: {
       REQUEST: text => ({ text }),
-      SUCCESS: response => ({ ...normalize(response, _todo) })
+      SUCCESS: response => normalize(response, _todo)
     },
     REMOVE: {
       REQUEST: id => ({ id }),
-      SUCCESS: response => ({ ...normalize(response, arrayOfTodos) })
+      SUCCESS: response => normalize(response, arrayOfTodos)
     },
     TOGGLE: {
       REQUEST: id => ({ id }),
-      SUCCESS: response => ({ ...normalize(response, _todo) })
+      SUCCESS: response => normalize(response, _todo)
     },
     FETCH: {
       REQUEST: filter => ({ filter }),
       SUCCESS: (filter, response) => ({ filter, ...normalize(response, arrayOfTodos) }),
       ERROR: (filter, errorMessage = '') => ({ filter, errorMessage }),
-    }
+    },
+    SWITCH_FILTER: filter => ({ filter })
   }
 })
 

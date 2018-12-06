@@ -1,5 +1,10 @@
 import { createActions, combineActions } from 'redux-actions'
-import { flatten } from 'flat'
+import { normalize, schema } from 'normalizr'
+import flatten from '@utils/flatten'
+
+const data = {
+  weather: [new schema.Entity('weather')]
+}
 
 export const { weather } = createActions({
   WEATHER: {
