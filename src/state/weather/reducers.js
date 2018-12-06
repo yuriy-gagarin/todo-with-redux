@@ -4,7 +4,7 @@ import { weather } from './actions'
 
 const data = handleActions({
   [weather.fetch.success]:
-    (state, action) => ({ ...state, ...action.payload }),
+    (state, action) => ({ ...action.payload }),
 }, {})
 
 const isFetching = handleActions({

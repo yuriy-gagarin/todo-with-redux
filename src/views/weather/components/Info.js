@@ -8,10 +8,16 @@ const Info = ({temp, scale, name, countryCode, weather, clouds, humidity, pressu
     <div className='weather-data'>
       <div className='weather-temp'>{`${temp}°${scale}`}</div>
       <div className='weather-misc'>
-        <span>{`Clouds:\xa0${clouds}%`}</span>
-        <span>{`Humidity:\xa0${humidity}%`}</span>
-        <span>{`Pressure:\xa0${pressure} hPa`}</span>
-        <span>{`Wind Speed:\xa0${windSpeed} m/sec`}</span>
+        <div>{`Clouds:\xa0${clouds}%`}</div>
+        <div>{`Humidity:\xa0${humidity}%`}</div>
+        <div>{`Pressure:\xa0${pressure}\xa0hPa`}</div>
+        <div>
+          <span>{`Wind:\xa0${windSpeed}\xa0m/s`}</span>
+          {windDirection 
+            ? <span style={{transform: 'rotate(' + windDirection + 'deg)'}}>↑</span>
+            : null
+          }
+        </div>
       </div>
     </div>
     <div className='weather-cards'>

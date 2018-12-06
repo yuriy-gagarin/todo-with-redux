@@ -33,12 +33,12 @@ export const latitude = state =>
 export const temperature = state =>
   data(state)['main.temp']
 
-export const convertedTemperature = (state, scale) =>
-  scale === 'C' ?
-    toCelsius(temperature(state)) : 
-  scale === 'F' ?
-    toFahrenheit(temperature(state)) :
-    temperature(state)
+export const convertedTemperature = (state) =>
+  (scale(state) === 'C')
+    ? toCelsius(temperature(state))
+    : (scale(state) === 'F')
+    ? toFahrenheit(temperature(state))
+    : temperature(state)
 
 export const pressure = state =>
   data(state)['main.pressure']
@@ -53,4 +53,4 @@ export const windSpeed = state =>
   data(state)['wind.speed']
 
 export const windDirection = state =>
-  data(state)['wind.deg']
+  data(state)['wind.deg'] || ''
