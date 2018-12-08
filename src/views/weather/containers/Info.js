@@ -2,8 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { selectors as get } from '@state/weather'
 
-import { toCelsius, toFahrenheit } from '@utils/tempScales'
-
 import Loading from '../components/Loading'
 import Info from '../components/Info'
 

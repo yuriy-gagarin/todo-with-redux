@@ -6,27 +6,26 @@ import { operations } from '@state/weather'
 import Spinner from '../components/Spinner'
 import Info from './Info'
 import Form from '../components/Form'
+import Error from '../components/Error'
 
-const Weather = ({fetchWeather, isFetching}) => {
+const Weather = ({fetchWeather, isFetching, fetchError}) => {
   useEffect(() => {
     fetchWeather('Rostov-on-Don')
   }, [])
 
-  const retryFetch = () => {
-    fetchWeather('New York')
-  }
-
   return (
     <div className='Weather panel'>
       <Info />
-      <Form {...{fetchWeather}}/>
+      <Form {...{fetchWeather}} />
       <Spinner {...{isFetching}} />
+      <Error {...fetchError} />
     </div>
   )
 }
 
 const selectors = state => ({
-  isFetching: get.isFetching(state)
+  isFetching: get.isFetching(state),
+  fetchError: get.fetchError(state)
 })
 
 export default connect(selectors, operations)(Weather)

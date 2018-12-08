@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 
-import { searchData } from '@api/cities.js'
+import { operations } from '@state/weather'
+import { searchData } from '@api/cities'
 
-import Spinner from './Spinner'
-
-const Form = ({fetchWeather}) => {
+const Form = ({fetchWeather, fetchWeatherById}) => {
   let input
 
   const [ac, setAc] = useState([])
   const [loading, setLoading] = useState(false)
-  const [loaded, setLoaded] = useState(false)
 
   const handleKeyUp = e => {
     if (e.key === 'Enter') {
@@ -31,13 +30,22 @@ const Form = ({fetchWeather}) => {
     }
   }
 
-  const cities = ac.map(({name, geonameid, country}) => <li key={geonameid}>{name}, {country}</li>)
+  const onItemClick = (geonameid, name) => {
+    input.value = name
+    fetchWeatherById(geonameid)
+  }
+
+  const cities = ac.map(({name, geonameid, country, countryCode}) =>
+    <li
+      key={geonameid}
+      onClick={() => onItemClick(geonameid, name)}
+    >
+      {name}, {country}
+    </li>
+  )
 
   return (
-    <div style={{
-      position: 'relative',
-      textAlign: 'center'
-    }}>
+    <div className='form-wrapper'>
     <input
       className='Form'
       onKeyUp={handleKeyUp}
@@ -46,7 +54,7 @@ const Form = ({fetchWeather}) => {
     />
     <ul style={{
       listStyle: 'none',
-      fontSize: '0.8rem',
+      fontSize: '0.7rem',
       fontWeight: '100',
       padding: 0,
       margin: 0,
@@ -57,4 +65,4 @@ const Form = ({fetchWeather}) => {
   )
 }
 
-export default Form
+export default connect(null, operations)(Form)

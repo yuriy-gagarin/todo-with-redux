@@ -11,6 +11,7 @@ export const searchData = query => {
     type: 'REQUEST',
     query
   })
+  console.log(`posting ${query}`)
   return new Promise((resolve, reject) => {
     worker.onmessage = event => {
       return resolve(event.data.filtered)

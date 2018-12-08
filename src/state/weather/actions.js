@@ -11,7 +11,7 @@ export const { weather } = createActions({
     FETCH: {
       REQUEST: query => ({ query }),
       SUCCESS: response => flatten(response),
-      ERROR: (query, error) => ({ query, error })
+      ERROR: (query, error) => ({ query, ...error })
     },
     UPDATE_KEY: key => ({ key }),
     SET_SCALE: scale => ({ scale })

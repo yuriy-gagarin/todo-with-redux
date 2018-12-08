@@ -1,0 +1,176 @@
+@import 'fluidType';
+
+$font-stack: (
+  "Gill Sans",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  "Roboto",
+  "Oxygen",
+  "Ubuntu",
+  "Cantarell",
+  "Fira Sans",
+  "Droid Sans",
+  "Helvetica Neue",
+  sans-serif
+);
+
+$font-stack-code: (
+  source-code-pro,
+  Menlo,
+  Monaco,
+  Consolas,
+  "Courier New",
+  monospace
+);
+
+html,
+body,
+ul,
+ol {
+  margin:  0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+input,
+button {
+  font-family: $font-stack;
+}
+
+body {
+  font-family: $font-stack;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: url(https://source.unsplash.com/random/1000x1000/?coffee) no-repeat center center fixed;
+  background-color: rgb(0, 0, 0);
+  background-size: cover;
+}
+
+$min_width: 320px;
+$max_width: 1000px;
+$min_font: 16px;
+$max_font: 22px;
+
+$spinner_size: 1.5rem;
+
+%smallfont {
+  font-size: .8rem;
+  font-weight: lighter;
+}
+
+html {
+  @include fluid-type($min_width, $max_width, $min_font, $max_font);
+}
+
+code {
+  font-family: $font-stack-code;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "weather todo"
+    "weather ."
+}
+
+.panel {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 4px;
+  margin: 4px;
+  border-radius: 4px;
+  transition: all ease;
+}
+
+%input-form {
+  border: none;
+  text-align: center;
+  font-size: 1rem;
+  width: 100%;
+  padding: 5px;
+  padding-left: 4px;
+  margin: 0;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.slide-up {
+  animation: slide-up 0.2s ease;
+}
+
+.spinning {
+  animation: spinning 4s infinite linear;
+}
+
+.loading-text {
+  padding-left: 10px;
+}
+
+.LoadingSpinner {
+  opacity: .5;
+  position: absolute;
+  width: $spinner_size;
+  height: $spinner_size;
+  right: 0;
+  bottom: 0;
+}
+
+.ErrorMessage {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: .12rem;
+  font-size: .8rem;
+  animation: fade-out 2s linear forwards 3s;
+  color: white;
+  background: maroon;
+}
+
+.ErrorMessage:hover {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spinning {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

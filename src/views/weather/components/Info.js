@@ -1,10 +1,11 @@
 import React from 'react'
+import { getFullName } from '@api/countries'
 
 const makeIcon = id => `http://openweathermap.org/img/w/${id}.png`
 
 const Info = ({temp, scale, name, countryCode, weather, clouds, humidity, pressure, windSpeed, windDirection}) => (
-  <div key={name} className='Info slide-up'>
-    <div className='weather-title'>{`${name},\xa0${countryCode}`}</div>
+  <div key={name+countryCode} className='Info slide-up'>
+    <div className='weather-title'>{`${name},\xa0${getFullName(countryCode)}`}</div>
     <div className='weather-data'>
       <div className='weather-temp'>{`${temp}°${scale}`}</div>
       <div className='weather-misc'>
@@ -12,9 +13,9 @@ const Info = ({temp, scale, name, countryCode, weather, clouds, humidity, pressu
         <div>{`Humidity:\xa0${humidity}%`}</div>
         <div>{`Pressure:\xa0${pressure}\xa0hPa`}</div>
         <div>
-          <span>{`Wind:\xa0${windSpeed}\xa0m/s`}</span>
+          <span>{`Wind:\xa0${windSpeed}\xa0m/s\xa0`}</span>
           {windDirection 
-            ? <span style={{transform: 'rotate(' + windDirection + 'deg)'}}>↓</span>
+            ? <span style={{transform: 'rotate(' + windDirection + 'deg)'}}>{'↓'}</span>
             : null
           }
         </div>

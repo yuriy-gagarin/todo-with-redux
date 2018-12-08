@@ -4,7 +4,7 @@ import { weather } from './actions'
 
 const data = handleActions({
   [weather.fetch.success]:
-    (state, action) => ({ ...action.payload }),
+    (_, action) => ({ ...action.payload })
 }, {})
 
 const isFetching = handleActions({
@@ -15,6 +15,11 @@ const isFetching = handleActions({
 const isFetched = handleActions({
   [weather.fetch.success]: () => true
 }, false)
+
+const fetchError = handleActions({
+  [weather.fetch.error]: (_, action) => action.payload,
+  [combineActions(weather.fetch.success, weather.fetch.request)]: () => null,
+}, null)
 
 const scale = handleActions({
   [weather.change_scale]: scale => {
@@ -27,7 +32,8 @@ const reducer = combineReducers({
   data,
   scale,
   isFetching,
-  isFetched
+  isFetched,
+  fetchError
 })
 
 export default reducer

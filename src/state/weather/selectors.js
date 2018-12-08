@@ -1,4 +1,3 @@
-import { createSelector } from 'reselect'
 import { toCelsius, toFahrenheit } from '@utils/tempScales'
 
 const _default = {}
@@ -11,6 +10,9 @@ export const isFetched = state =>
 
 export const scale = state =>
   state.weather.scale
+
+export const fetchError = state =>
+  state.weather.fetchError
 
 export const data = state =>
   state.weather.data || _default
