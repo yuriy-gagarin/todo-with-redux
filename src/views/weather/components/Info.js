@@ -3,7 +3,7 @@ import React from 'react'
 const makeIcon = id => `http://openweathermap.org/img/w/${id}.png`
 
 const Info = ({temp, scale, name, countryCode, weather, clouds, humidity, pressure, windSpeed, windDirection}) => (
-  <div className='Info slide-up'>
+  <div key={name} className='Info slide-up'>
     <div className='weather-title'>{`${name},\xa0${countryCode}`}</div>
     <div className='weather-data'>
       <div className='weather-temp'>{`${temp}°${scale}`}</div>
@@ -14,7 +14,7 @@ const Info = ({temp, scale, name, countryCode, weather, clouds, humidity, pressu
         <div>
           <span>{`Wind:\xa0${windSpeed}\xa0m/s`}</span>
           {windDirection 
-            ? <span style={{transform: 'rotate(' + windDirection + 'deg)'}}>↑</span>
+            ? <span style={{transform: 'rotate(' + windDirection + 'deg)'}}>↓</span>
             : null
           }
         </div>

@@ -1,3 +1,7 @@
+/**
+ * mock backend for todos app
+ */
+
 import v4 from 'uuid/v4'
 import { loadState, saveState } from '@utils/localStorage'
 

@@ -19,12 +19,7 @@ const Weather = ({fetchWeather, isFetching}) => {
   return (
     <div className='Weather panel'>
       <Info />
-      <div>
       <Form {...{fetchWeather}}/>
-      <button 
-        style={{width: '50px'}}
-        onClick={() => retryFetch()}>refetch</button>
-      </div>
       <Spinner {...{isFetching}} />
     </div>
   )
