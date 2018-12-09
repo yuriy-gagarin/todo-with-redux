@@ -55,7 +55,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: url(https://source.unsplash.com/random/1000x1000/?coffee) no-repeat center center fixed;
   background-color: rgb(0, 0, 0);
-  background-size: cover;
+  
+  @media screen and (max-width: 700px) {
+    background-position: top;
+  }
 }
 
 $min_width: 320px;
@@ -86,7 +89,16 @@ code {
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
     "weather todo"
-    "weather ."
+    "weather .";
+  @media screen and (max-width: 700px) {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    padding: 0 4rem;
+  }
+  @media screen and (max-width: 550px) {
+    padding: 0 3rem;
+  }
 }
 
 .panel {
@@ -113,10 +125,6 @@ code {
   animation: slide-up 0.2s ease;
 }
 
-.spinning {
-  animation: spinning 4s infinite linear;
-}
-
 .loading-text {
   padding-left: 10px;
 }
@@ -128,6 +136,7 @@ code {
   height: $spinner_size;
   right: 0;
   bottom: 0;
+  animation: spinning 2s linear infinite;
 }
 
 .ErrorMessage {

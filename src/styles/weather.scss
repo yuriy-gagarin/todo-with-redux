@@ -7,80 +7,89 @@
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
-  .form-wrapper {
-    position: relative;
-    text-align: center;
-    overflow-y: scroll;
-    ::-webkit-scrollbar {
-      width: 0px;
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: black;
-    }
+  @media screen and (max-width: 700px) {
+    min-height: 20rem;
   }
-  .Form {
-    @extend %input-form;
-    margin: 10px 0;
-    width: 70%;
+}
+
+.form-wrapper {
+  position: relative;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+.Form {
+  @extend %input-form;
+  margin: 10px 0;
+  width: 70%;
+}
+
+.Info {
+  position: relative;
+  width: 70%;
+  text-align: left;
+  margin-top: 4rem;
+  margin-bottom: .2rem;
+  @media screen and (max-width: 700px) {
+    margin-top: 2rem;
   }
-  .Info {
-    position: relative;
-    width: 70%;
-    text-align: left;
-    margin-top: 4rem;
-    margin-bottom: .2rem;
-    .weather-title {
-      margin: 0;
-      padding: 0;
-      font-size: 1rem;
-      font-weight: normal;
-      border-bottom: 1px solid lightgray;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    .weather-data {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;   
-    }
-    .weather-temp {
-      font-size: 3rem;
-      margin: 0;
-      padding: 0;
-    }
-    .weather-misc {
-      padding-top: .2rem;
-      text-align: end;
-      @extend %smallfont;
-      span {
-        display: inline-block
-      }
-    }
-    .weather-cards {
-      display: flex;
-      justify-content: center;
-    }
-    .weather-card {
-      @extend %smallfont;
-      text-align: center;
-      display: inline-block;
-      background: rgba(248, 248, 255, 0.5);
-      border-radius: 4px;
-      margin: 3px;
-      width: 4.5rem;
-      height: 5rem;
-      padding: 3px;
-      img {
-        width: 2rem;
-        height: 2rem;
-      }
-      span {
-        display: block;
-      }
-      .weather-desc {
-        font-size: .6rem;
-      }
-    }
+}
+
+.weather-title {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: normal;
+  border-bottom: 1px solid lightgray;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.weather-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;   
+}
+
+.weather-temp {
+  font-size: 3rem;
+  margin: 0;
+  padding: 0;
+}
+
+.weather-misc {
+  padding-top: .2rem;
+  text-align: end;
+  @extend %smallfont;
+  span {
+    display: inline-block
   }
+}
+
+.weather-cards {
+  display: flex;
+  justify-content: center;
+}
+
+.weather-card {
+  @extend %smallfont;
+  text-align: center;
+  display: inline-block;
+  background: rgba(248, 248, 255, 0.5);
+  border-radius: 4px;
+  margin: 3px;
+  width: 4.5rem;
+  height: 5rem;
+  padding: 3px;
+  img {
+    width: 2rem;
+    height: 2rem;
+  }
+  span {
+    display: block;
+  }
+}
+
+.weather-desc {
+  font-size: .6rem;
 }

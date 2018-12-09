@@ -2,11 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { selectors as get } from '@state/weather'
 
-import Loading from '../components/Loading'
 import Info from '../components/Info'
 
 const InfoContainer = (props) => (
-  props.isFetched ? <Info {...props} /> : <Loading />
+  props.isFetched ? <Info {...props} /> : <span>Loading</span>
 )
 
 const selectors = (state, {scale}) => ({

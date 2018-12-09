@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
+import { debounce } from 'lodash'
+
 import { operations } from '@state/weather'
 import { searchData } from '@api/cities'
 
@@ -10,24 +12,29 @@ const Form = ({fetchWeather, fetchWeatherById}) => {
   const [ac, setAc] = useState([])
   const [loading, setLoading] = useState(false)
 
+  const debounced = debounce((value) => {
+    if (value.trim().length >= 3) {
+      setLoading(true)
+      searchData(value.trim())
+      .then(data => {
+        setAc(data)
+        setLoading(false)
+      })
+    }
+  }, 500)
+
   const handleKeyUp = e => {
     if (e.key === 'Enter') {
       e.preventDefault()
       if (!input.value.trim()) return
       fetchWeather(input.value.trim())
       input.value = ''
-    } else if (e.key.match(/^[a-zA-Z]$/)) {
-      console.log(e.key)
-      if (input.value.trim().length >= 3)
-        if (!loading) {
-          setLoading(true)
-          searchData(input.value.trim())
-          .then(data => {
-            setAc(data)
-            setLoading(false)
-          })
-        }
     }
+  }
+
+  const handleChange = e => {
+    setLoading(true)
+    debounced(input.value)
   }
 
   const onItemClick = (geonameid, name) => {
@@ -49,6 +56,7 @@ const Form = ({fetchWeather, fetchWeatherById}) => {
     <input
       className='Form'
       onKeyUp={handleKeyUp}
+      onChange={handleChange}
       ref={node => input = node}
       placeholder='type here...'
     />
