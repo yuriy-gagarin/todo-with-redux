@@ -8,7 +8,7 @@ const InfoContainer = (props) => (
   props.isFetched ? <Info {...props} /> : <span>Loading</span>
 )
 
-const selectors = (state, {scale}) => ({
+const selectors = state => ({
   isFetched:     get.isFetched(state),
   temp:          get.convertedTemperature(state),
   scale:         get.scale(state),
