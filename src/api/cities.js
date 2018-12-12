@@ -3,17 +3,10 @@
  */
 
 import Worker from 'worker-loader!./cities.worker.js' // eslint-disable-line
+import createWorker from '@utils/createWorker'
 
-const worker = new Worker()
+const dispatch = createWorker(Worker)
 
 export const searchCities = query => {
-  worker.postMessage({
-    type: 'REQUEST',
-    query
-  })
-  return new Promise((resolve, reject) => {
-    worker.onmessage = event => {
-      return resolve(event.data.filtered)
-    }
-  })
+  return dispatch(query)
 }

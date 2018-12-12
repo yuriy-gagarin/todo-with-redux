@@ -26,7 +26,7 @@ const Form = ({cities, isFetching, fetchWeather, fetchWeatherById, searchCities}
     if (value.trim().length >= 3) {
       searchCities(value.trim())
     }
-  }, 500)
+  }, 200, { leading: true })
 
   const handleKeyUp = e => {
     if (e.key === 'Enter') {

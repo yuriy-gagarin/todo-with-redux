@@ -15,10 +15,13 @@ export const fetchError = state =>
   state.weather.fetchError
 
 export const cities = state =>
-  state.weather.cities
+  state.weather.citiesData.cities
+
+export const lastCitiesFetchId = state =>
+  state.weather.citiesData.lastFetchId
 
 export const data = state =>
-  state.weather.data || _default
+  state.weather.weatherData || _default
 
 export const weather = state =>
   data(state).weather

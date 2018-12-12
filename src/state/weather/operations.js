@@ -1,7 +1,7 @@
 import { weather } from './actions'
 import * as apiWeather from '@api/weather'
 import * as apiCities from '@api/cities'
-import { isFetching } from './selectors'
+import { isFetching, lastCitiesFetchId } from './selectors'
 
 export const fetchWeather = query => (dispatch, getState) => {
   if (isFetching(getState()))
@@ -28,13 +28,16 @@ export const fetchWeatherById = query => (dispatch, getState) => {
 }
 
 export const searchCities = query => (dispatch, getState) => {
-  if (isFetching(getState()))
-    return Promise.resolve()
+  // if (isFetching(getState()))
+  //   return Promise.resolve()
   
   dispatch(weather.cities.request(query))
 
   apiCities.searchCities(query).then(
-    response => dispatch(weather.cities.success(response)),
+    response => {
+      if (lastCitiesFetchId(getState()) > response.id) console.log('RACE')
+      dispatch(weather.cities.success(response))
+    },
     error => dispatch(weather.cities.error(query, error))
   )
 }
