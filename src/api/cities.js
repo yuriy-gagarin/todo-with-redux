@@ -6,12 +6,11 @@ import Worker from 'worker-loader!./cities.worker.js' // eslint-disable-line
 
 const worker = new Worker()
 
-export const searchData = query => {
+export const searchCities = query => {
   worker.postMessage({
     type: 'REQUEST',
     query
   })
-  console.log(`posting ${query}`)
   return new Promise((resolve, reject) => {
     worker.onmessage = event => {
       return resolve(event.data.filtered)

@@ -13,6 +13,11 @@ export const { weather } = createActions({
       SUCCESS: response => flatten(response),
       ERROR: (query, error) => ({ query, ...error })
     },
+    CITIES: {
+      REQUEST: query => ({ query }),
+      SUCCESS: response => response,
+      ERROR: (query, error) => ({ query, ...error })
+    },
     UPDATE_KEY: key => ({ key }),
     SET_SCALE: scale => ({ scale })
   }

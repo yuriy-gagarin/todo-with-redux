@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { handleActions, combineActions } from 'redux-actions'
+import { handleActions, combineActions as c } from 'redux-actions'
 import { weather } from './actions'
 
 const data = handleActions({
@@ -7,9 +7,18 @@ const data = handleActions({
     (_, action) => ({ ...action.payload })
 }, {})
 
+const cities = handleActions({
+  [weather.cities.success]:
+    (_, action) => ([ ...action.payload ])
+}, [])
+
 const isFetching = handleActions({
-  [weather.fetch.request]: () => true,
-  [combineActions(weather.fetch.success, weather.fetch.error)]: () => false
+  [c(weather.fetch.request, 
+     weather.cities.request)]: () => true,
+  [c(weather.fetch.success, 
+     weather.fetch.error, 
+     weather.cities.success, 
+     weather.cities.error)]: () => false
 }, false)
 
 const isFetched = handleActions({
@@ -18,7 +27,7 @@ const isFetched = handleActions({
 
 const fetchError = handleActions({
   [weather.fetch.error]: (_, action) => action.payload,
-  [combineActions(weather.fetch.success, weather.fetch.request)]: () => null,
+  [c(weather.fetch.success, weather.fetch.request)]: () => null,
 }, null)
 
 const scale = handleActions({
@@ -30,6 +39,7 @@ const scale = handleActions({
 
 const reducer = combineReducers({
   data,
+  cities,
   scale,
   isFetching,
   isFetched,

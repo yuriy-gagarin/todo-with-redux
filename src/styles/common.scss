@@ -1,11 +1,33 @@
 @import 'fluidType';
 
+$accent: #663399;
+
+@font-face {
+  font-family: 'Gill Sans';
+  src:
+    local('Gill Sans Light'), local('GillSans-Light'),
+    url('./fonts/GillSans-Light.woff2') format('woff2'),
+    url('./fonts/GillSans-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gill Sans';
+  src: 
+    local('Gill Sans'), local('GillSans'),
+    url('./fonts/GillSans.woff2') format('woff2'),
+    url('./fonts/GillSans.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 $font-stack: (
   "Gill Sans",
+  "Roboto",
   -apple-system,
   BlinkMacSystemFont,
   "Segoe UI",
-  "Roboto",
   "Oxygen",
   "Ubuntu",
   "Cantarell",
@@ -23,7 +45,12 @@ $font-stack-code: (
   "Courier New",
   monospace
 );
-
+    
+%smallfont {
+  font-size: .8rem;
+  font-weight: 300;
+  font-style: normal;
+}
 html,
 body,
 ul,
@@ -47,12 +74,18 @@ body {
 input,
 button {
   font-family: $font-stack;
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {
   font-family: $font-stack;
+  font-weight: normal;
+  font-style: normal;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   background: url(https://source.unsplash.com/random/1000x1000/?coffee) no-repeat center center fixed;
   background-color: rgb(0, 0, 0);
   
@@ -61,17 +94,17 @@ body {
   }
 }
 
+a {
+  color: $accent;
+}
+
 $min_width: 320px;
 $max_width: 1000px;
-$min_font: 16px;
-$max_font: 22px;
+$min_font: 20px;
+$max_font: 23px;
 
 $spinner_size: 1.5rem;
 
-%smallfont {
-  font-size: .8rem;
-  font-weight: lighter;
-}
 
 html {
   @include fluid-type($min_width, $max_width, $min_font, $max_font);

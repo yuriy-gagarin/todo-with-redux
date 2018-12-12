@@ -14,6 +14,9 @@ export const scale = state =>
 export const fetchError = state =>
   state.weather.fetchError
 
+export const cities = state =>
+  state.weather.cities
+
 export const data = state =>
   state.weather.data || _default
 

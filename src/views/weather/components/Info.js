@@ -15,7 +15,7 @@ const Info = ({temp, scale, name, countryCode, weather, clouds, humidity, pressu
         <div>
           <span>{`Wind:\xa0${windSpeed}\xa0m/s\xa0`}</span>
           {windDirection 
-            ? <span class='wind-direction' style={{transform: 'rotate(' + windDirection + 'deg)'}}>{'↓'}</span>
+            ? <span className='wind-direction' style={{transform: 'rotate(' + windDirection + 'deg)'}}>{'↓'}</span>
             : null
           }
         </div>

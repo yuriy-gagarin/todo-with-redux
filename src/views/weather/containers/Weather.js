@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { selectors as get } from '@state/weather'
 import { operations } from '@state/weather'
 
-import Spinner from '../components/Spinner'
 import Info from './Info'
-import Form from '../components/Form'
+import Form from './Form'
+import Spinner from '../components/Spinner'
 import Error from '../components/Error'
 
 const Weather = ({fetchWeather, isFetching, fetchError}) => {

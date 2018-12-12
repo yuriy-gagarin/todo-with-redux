@@ -15,13 +15,37 @@
 .form-wrapper {
   position: relative;
   text-align: center;
-  overflow-y: scroll;
+  width: 70%;
 }
 
 .Form {
   @extend %input-form;
   margin: 10px 0;
-  width: 70%;
+}
+
+.form-dropdown {
+  list-style: none;
+  font-size: 0.9rem;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  border: 1px gray transparent;
+  border-radius: 3px;
+  li {
+    margin: 4px;
+    padding: 4px;
+    background-color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+      background-color: $accent;
+      color: white;
+    }
+  }
+  overflow-y: scroll;
+  max-height: 10rem;
 }
 
 .Info {
@@ -39,7 +63,6 @@
   margin: 0;
   padding: 0;
   font-size: 1rem;
-  font-weight: normal;
   border-bottom: 1px solid lightgray;
   white-space: nowrap;
   overflow: hidden;
@@ -88,6 +111,7 @@
   span {
     display: block;
   }
+  overflow: hidden;
 }
 
 .weather-desc {
