@@ -58,3 +58,11 @@ export const toggleTodo = id => (
     return todo
   })
 )
+
+export const removeAll = () => (
+  delay(DELAY).then(() => {
+    fakeDatabase.todos = []
+    saveState('todos', fakeDatabase.todos)
+    return {}
+  })
+)

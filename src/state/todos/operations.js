@@ -1,6 +1,6 @@
 import * as api from '@api/todos'
 import { todo } from './actions'
-import { isFetchingByFilter } from './selectors'
+import { isFetchingByFilter, isFetchingSomething } from './selectors';
 
 export const addItem = text => dispatch => {
   dispatch(todo.add.request(text))
@@ -35,6 +35,18 @@ export const fetchItems = filter => (dispatch, getState) => {
   api.fetchTodos(filter).then(
     response => dispatch(todo.fetch.success(filter, response)),
     error => dispatch(todo.fetch.error(filter, error.message))
+  )
+}
+
+export const removeAllTodos = () => (dispatch, getState) => {
+  if (isFetchingSomething(getState()))
+    return Promise.resolve()
+
+  dispatch(todo.removeAll.request())
+
+  api.removeAll().then(
+    response => dispatch(todo.removeAll.success()),
+    error => dispatch(todo.removeAll.error())
   )
 }
 

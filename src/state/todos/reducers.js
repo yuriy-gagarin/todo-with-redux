@@ -24,13 +24,15 @@ const createLookupReducer = filter => {
     [todo.toggle.success]:
       toggle,
     [todo.remove.success]:
-      (state, action) => without(state, ...action.payload.result)
+      (state, action) => without(state, ...action.payload.result),
+    [todo.removeAll.success]:
+      () => ([])
   }, [])
 
   const isFetching = handleActions({
-    [combineActions(todo.fetch.request, todo.toggle.request)]:
+    [combineActions(todo.fetch.request, todo.toggle.request, todo.removeAll.request)]:
       (state, action) => validFilter(filter, action) ? true : state,
-    [combineActions(todo.fetch.success, todo.fetch.error)]:
+    [combineActions(todo.fetch.success, todo.fetch.error, todo.removeAll.request)]:
       (state, action) => validFilter(filter, action) ? false : state
   }, false)
 

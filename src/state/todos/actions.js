@@ -23,6 +23,11 @@ export const { todo } = createActions({
       SUCCESS: (filter, response) => ({ filter, ...normalize(response, arrayOfTodos) }),
       ERROR: (filter, errorMessage = '') => ({ filter, errorMessage }),
     },
+    REMOVE_ALL: {
+      REQUEST: () => ({}),
+      SUCCESS: () => ({}),
+      ERROR: () => ({})
+    },
     SWITCH_FILTER: filter => ({ filter })
   }
 })
@@ -31,16 +36,19 @@ export const request = combineActions(
   todo.add.request,
   todo.remove.request,
   todo.toggle.request,
-  todo.fetch.request
+  todo.fetch.request,
+  todo.removeAll.request
 )
 
 export const success = combineActions(
   todo.add.success,
   todo.remove.success,
   todo.toggle.success,
-  todo.fetch.success
+  todo.fetch.success,
+  todo.removeAll.success
 )
 
 export const error = combineActions(
-  todo.fetch.error
+  todo.fetch.error,
+  todo.removeAll.error
 )

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { selectors } from '@state/todos'
 import { operations } from '@state/todos'
 
-const Links = ({filter, switchFilter}) => {
+const Links = ({filter, switchFilter, removeAllTodos}) => {
   const filterFor = filterName =>
     filter === filterName ? 'filter-link-current filter-link' : 'filter-link'
   return (
@@ -26,6 +26,14 @@ const Links = ({filter, switchFilter}) => {
         className={filterFor('completed')}
         onClick={() => switchFilter('completed')}>
         Completed
+      </Link>
+      <Link
+        to='#'
+        className='filter-link'
+        onClick={() => removeAllTodos()}
+        style={{float: 'right'}}
+        >
+        Remove all
       </Link>
     </div>
   )

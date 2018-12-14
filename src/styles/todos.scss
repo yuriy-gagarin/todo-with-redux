@@ -3,7 +3,7 @@
   height: 100%;
   min-width: 100%;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   vertical-align: top;
   // @media screen and (max-width: 700px) {
   //   min-height: 20rem;
@@ -11,6 +11,7 @@
   // }
   padding: 30px;
   scroll-snap-align: start;
+  margin-right: 10px;
 }
 
 .Form {
@@ -25,6 +26,7 @@
   width: 100%;  
   padding: 0 4px;
   text-align: left;
+  overflow-y: scroll;
   li {
     padding: 2px 0;
     border-bottom: 1px solid lightgray;
@@ -36,6 +38,7 @@
 }
 
 .no-todos {
+  margin-top: 40px;
   text-align: center;
   color: gray;
   font-size: 1.2rem;

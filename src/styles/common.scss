@@ -147,7 +147,7 @@ code {
   // align-items: stretch;
   // align-content: stretch;
   overflow: scroll;
-  transform: translateX(-000%);
+  // transform: translateX(-000%);
   transition: all ease 1s;
   scroll-snap-type: mandatory;
   scroll-snap-points-y: repeat(300px);
@@ -155,7 +155,7 @@ code {
 }
 
 .panel {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.7);
   // padding: 4px;
   // margin: 4px;
   // border-radius: 4px;
