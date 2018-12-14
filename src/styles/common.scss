@@ -117,29 +117,46 @@ code {
 #root {
   height: 100%;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-    "weather todo"
-    "weather .";
-  @media screen and (max-width: 700px) {
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: flex-end;
-    padding: 0 4rem;
-  }
-  @media screen and (max-width: 550px) {
-    padding: 0 3rem;
-  }
+  // display: grid;
+  // grid-template-columns: 1fr 1fr;
+  // grid-template-rows: 1fr 1fr;
+  // grid-template-areas:
+    // "weather todo"
+    // "weather .";
+  // @media screen and (max-width: 700px) {
+    // display: flex;
+    // flex-direction: column-reverse;
+    // justify-content: flex-end;
+    // padding: 0 4rem;
+  // }
+  // @media screen and (max-width: 550px) {
+    // padding: 0 3rem;
+  // }
+}
+
+.Slider {
+  height: 100%;
+  display: flex;
+  // width: 100%;
+  // padding: 15vh 0;
+  vertical-align: top;
+  // display: block;
+  // flex-direction: row;
+  // justify-content: center;
+  // flex-wrap: nowrap;
+  // align-items: stretch;
+  // align-content: stretch;
+  overflow-x: visible;
+  transform: translateX(-000%);
+  transition: all ease 1s;
+  overflow: scroll;
 }
 
 .panel {
   background-color: rgba(255, 255, 255, 0.9);
-  padding: 4px;
-  margin: 4px;
-  border-radius: 4px;
-  transition: all ease;
+  // padding: 4px;
+  // margin: 4px;
+  // border-radius: 4px;
 }
 
 %input-form {

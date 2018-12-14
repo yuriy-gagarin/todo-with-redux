@@ -14,11 +14,11 @@ export default function configureStore() {
     thunk,
   ]
 
-  // if (process.env.NODE_ENV !== 'production') {
-  //   middlewares.push(
-  //     createLogger()
-  //   )
-  // }
+  if (process.env.NODE_ENV !== 'production') {
+    middlewares.push(
+      createLogger()
+    )
+  }
 
   const composeEnhancer = process.env.NODE_ENV !== 'production' ?
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : compose
