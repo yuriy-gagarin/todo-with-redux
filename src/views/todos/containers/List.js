@@ -8,7 +8,7 @@ import List from '../components/List'
 const ListContainer = (props) => {
   const {fetchItems, removeItem, toggleItem, filter, ...rest} = props
 
-   useEffect(() => {
+  useEffect(() => {
     fetchItems(filter)
   }, [filter])
 

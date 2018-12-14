@@ -28,14 +28,13 @@ export const fetchWeatherById = query => (dispatch, getState) => {
 }
 
 export const searchCities = query => (dispatch, getState) => {
-  // if (isFetching(getState()))
-  //   return Promise.resolve()
+  if (isFetching(getState()))
+    return Promise.resolve()
   
   dispatch(weather.cities.request(query))
 
   apiCities.searchCities(query).then(
     response => {
-      if (lastCitiesFetchId(getState()) > response.id) console.log('RACE')
       dispatch(weather.cities.success(response))
     },
     error => dispatch(weather.cities.error(query, error))

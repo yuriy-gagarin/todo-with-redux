@@ -16,7 +16,6 @@ const createWorker = (Worker) => {
   }
 
   const receive = message => {
-    console.log(message.data)
     const {id, result, error} = message.data
     
     if (result && res[id]) {
@@ -25,8 +24,8 @@ const createWorker = (Worker) => {
       rej[id]({id, error})
     }
 
-    res[id] = undefined
-    rej[id] = undefined
+    delete res[id]
+    delete rej[id]
   }
 
   worker.onmessage = receive

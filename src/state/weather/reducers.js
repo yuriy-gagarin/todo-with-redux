@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 import { handleActions, combineActions as c } from 'redux-actions'
 import { weather } from './actions'
-import { lastCitiesFetchId } from './selectors'
 
 const weatherData = handleActions({
   [weather.fetch.success]:
