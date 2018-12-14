@@ -146,10 +146,12 @@ code {
   // flex-wrap: nowrap;
   // align-items: stretch;
   // align-content: stretch;
-  overflow-x: visible;
+  overflow: scroll;
   transform: translateX(-000%);
   transition: all ease 1s;
-  overflow: scroll;
+  scroll-snap-type: mandatory;
+  scroll-snap-points-y: repeat(300px);
+  scroll-snap-type: x mandatory;
 }
 
 .panel {
