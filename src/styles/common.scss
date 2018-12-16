@@ -86,7 +86,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background: url(https://source.unsplash.com/random/1000x1000/?coffee) no-repeat center center fixed;
+  // background: url(https://source.unsplash.com/random/1000x1000/?coffee) no-repeat center center fixed;
   background-color: rgb(0, 0, 0);
   
   @media screen and (max-width: 700px) {
@@ -148,10 +148,10 @@ code {
   // align-content: stretch;
   overflow: scroll;
   // transform: translateX(-000%);
-  transition: all ease 1s;
-  scroll-snap-type: mandatory;
-  scroll-snap-points-y: repeat(300px);
-  scroll-snap-type: x mandatory;
+  // transition: all ease 1s;
+  // scroll-snap-type: mandatory;
+  // scroll-snap-points-y: repeat(300px);
+  // scroll-snap-type: x mandatory;
 }
 
 .panel {
