@@ -4,7 +4,9 @@ import { debounce } from 'lodash'
 import { operations } from '@state/weather'
 import { selectors as get } from '@state/weather'
 
-const Form = ({cities, isFetching, fetchWeather, fetchWeatherById, searchCities}) => {
+import Form from '../components/Form'
+
+const FormContainer = ({cities, isFetching, fetchWeather, fetchWeatherById, searchCities}) => {
   let inputRef = useRef(null)
   let wrapperRef = useRef(null)
 
@@ -54,33 +56,7 @@ const Form = ({cities, isFetching, fetchWeather, fetchWeatherById, searchCities}
     fetchWeatherById(geonameid)
   }
 
-  const _cities = cities.map(({name, geonameid, country}) =>
-    <li
-      key={geonameid}
-      onClick={() => onItemClick(geonameid, name)}
-    >
-      {name}, {country}
-    </li>
-  )
-
-  return (
-    <div 
-      className='form-wrapper'
-      ref={wrapperRef}
-    >
-    <input
-      className='Form'
-      onKeyUp={handleKeyUp}
-      onChange={handleChange}
-      onClick={openList}
-      ref={inputRef}
-      placeholder='type here...'
-    />
-    {listOpen && <ul className='form-dropdown'>
-      {_cities}
-    </ul>}    
-    </div>
-  )
+  return <Form {...{cities, wrapperRef, handleKeyUp, handleChange, openList, inputRef, onItemClick, listOpen}} />
 }
 
 const selectors = state => ({
@@ -88,4 +64,4 @@ const selectors = state => ({
   cities:     get.cities(state)
 })
 
-export default connect(selectors, operations)(Form)
+export default connect(selectors, operations)(FormContainer)

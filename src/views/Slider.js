@@ -58,6 +58,8 @@ const Slider = (props) => {
 
   // moving vertically scrolls the content horizontally
   const onWheel = event => {
+    const mustScroll = Array.from(document.querySelectorAll('.has-to-scroll'))
+    if (mustScroll.some(elem => elem.contains(event.target))) return
     event.preventDefault()
     const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX
     sliderRef.current.scrollLeft = sliderRef.current.scrollLeft + delta
