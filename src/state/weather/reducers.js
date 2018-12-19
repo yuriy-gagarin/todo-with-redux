@@ -42,6 +42,13 @@ const scale = handleActions({
   }
 }, 'C')
 
+const userCoords = handleActions({
+  [weather.location.success]: (state, {payload: {coords}}) => ({
+    latitude: coords.latitude,
+    longitude: coords.longitude
+  })
+}, {latitude: null, longitude: null})
+
 const citiesData = combineReducers({
   cities,
   lastFetchId
@@ -53,7 +60,8 @@ const reducer = combineReducers({
   scale,
   isFetching,
   isFetched,
-  fetchError
+  fetchError,
+  userCoords
 })
 
 export default reducer

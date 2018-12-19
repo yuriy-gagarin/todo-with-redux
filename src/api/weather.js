@@ -1,4 +1,5 @@
 import queryString from 'query-string'
+import * as locationApi from './location'
 import * as keys from 'keys'
 
 const WEATHER_URI = 'http://api.openweathermap.org/data/2.5/weather'
@@ -8,6 +9,9 @@ const createStringQuery = query =>
 
 const createIdQuery = query =>
   `${WEATHER_URI}/?${queryString.stringify({id: query, appid: keys.openweathermap})}`
+
+const createCoordsQuery = (query) =>
+  `${WEATHER_URI}/?${queryString.stringify({lat: query.latitude, lon: query.longitude, appid: keys.openweathermap})}`
 
 export const fetchWeather = query => (
   fetch(createStringQuery(query))
@@ -26,3 +30,13 @@ export const fetchWeatherById = query => (
     return res
   })
 )
+
+export const fetchWeatherByCoords = query => {
+  console.log(query)
+  return fetch(createCoordsQuery(query))
+  .then(res => res.json())
+  .then(res => {
+    if (res.cod !== 200) throw res
+    return res
+  })
+}

@@ -203,7 +203,7 @@ code {
   }
 }
 
-%input-form {
+.Form {
   border: none;
   text-align: center;
   font-size: 1rem;
@@ -212,7 +212,13 @@ code {
   padding-left: 4px;
   margin: 0;
   text-align: left;
-  border-radius: 4px;
+  background-color: transparent;
+  margin: 10px 0;
+  border-bottom: 1px solid lightgray;
+}
+
+.Form:focus {
+  outline: none;
 }
 
 .slide-up {

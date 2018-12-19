@@ -14,6 +14,11 @@ export const { weather } = createActions({
       SUCCESS: response => response,
       ERROR: (query, error) => ({ query, ...error })
     },
+    LOCATION: {
+      REQUEST: query => ({ query }),
+      SUCCESS: response => response,
+      ERROR: error => error
+    },
     UPDATE_KEY: key => ({ key }),
     SET_SCALE: scale => ({ scale })
   }

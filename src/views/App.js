@@ -7,8 +7,8 @@ import Weather from './weather'
 const App = (props) => {
   return (
     <Slider>
-      <Todos />
       <Weather />
+      <Todos />
     </Slider>
   )
 }

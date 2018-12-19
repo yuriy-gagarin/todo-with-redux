@@ -8,10 +8,15 @@ import Form from './Form'
 import Spinner from '../components/Spinner'
 import Error from '../components/Error'
 
-const Weather = ({fetchWeather, isFetching, fetchError}) => {
+const Weather = ({fetchWeather, isFetching, userCoords, fetchError, getCurrentLocation, fetchWeatherByCoords}) => {
   useEffect(() => {
-    fetchWeather('Rostov-on-Don')
+    getCurrentLocation()
   }, [])
+
+  useEffect(() => {
+    if (userCoords.latitude === null || userCoords.longitude === null) return
+    fetchWeatherByCoords(userCoords)
+  }, [userCoords])
 
   return (
     <div className='Weather panel'>
@@ -25,7 +30,8 @@ const Weather = ({fetchWeather, isFetching, fetchError}) => {
 
 const selectors = state => ({
   isFetching: get.isFetching(state),
-  fetchError: get.fetchError(state)
+  fetchError: get.fetchError(state),
+  userCoords: get.userCoords(state)
 })
 
 export default connect(selectors, operations)(Weather)

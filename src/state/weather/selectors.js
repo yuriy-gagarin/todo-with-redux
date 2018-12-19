@@ -23,6 +23,9 @@ export const lastCitiesFetchId = state =>
 export const data = state =>
   state.weather.weatherData || _default
 
+export const userCoords = state =>
+  state.weather.userCoords
+
 export const weather = state =>
   data(state).weather
 

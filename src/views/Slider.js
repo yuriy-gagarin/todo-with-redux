@@ -65,12 +65,27 @@ const Slider = (props) => {
     sliderRef.current.scrollLeft = sliderRef.current.scrollLeft + delta
   }
 
+  const onTouchMove = event => {
+    console.log('touch move')
+  }
+
+  const onTouchStart = event => {
+    console.log('touch start')
+  }
+
+  const onTouchEnd = event => {
+    console.log('touch end')
+  }
+
   return (
     <div 
       className='Slider'
       ref={sliderRef}
       onScroll={onScroll}
       onWheel={onWheel}
+      onTouchMove={onTouchMove}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
       // onKeydown={onKeydown}
     >
       {props.children}
