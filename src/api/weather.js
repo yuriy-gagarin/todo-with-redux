@@ -31,7 +31,6 @@ export const fetchWeatherById = query => (
 )
 
 export const fetchWeatherByCoords = query => {
-  console.log(query)
   return fetch(createCoordsQuery(query))
   .then(res => res.json())
   .then(res => {

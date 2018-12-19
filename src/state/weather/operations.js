@@ -4,50 +4,45 @@ import * as apiCities from '@api/cities'
 import * as apiLocation from '@api/location'
 import { isFetching } from './selectors'
 
-const createWeatherThunk = (actionCreator, apiMethod) => query => (dispatch, getState) => {
-  if (isFetching(getState()))
-    return Promise.resolve()
+const createThunk = (actionCreator, apiMethod, check = () => false) => (
+  query => (dispatch, getState) => {
+    if (check(getState()))
+      return Promise.resolve()
 
-  dispatch(actionCreator.request(query))
+    dispatch(actionCreator.request(query))
 
-  apiMethod(query).then(
-    response => dispatch(actionCreator.success(response)),
-    error => dispatch(actionCreator.error(query, error))
-  )
-}
+    return apiMethod(query).then(
+      response => dispatch(actionCreator.success(response)),
+      error => dispatch(actionCreator.error(query, error))
+    )
+  }
+)
 
-export const fetchWeather = createWeatherThunk(
+export const fetchWeather = createThunk(
   weather.fetch.name,
-  apiWeather.fetchWeather
+  apiWeather.fetchWeather,
+  isFetching
 )
 
-export const fetchWeatherById = createWeatherThunk(
+export const fetchWeatherById = createThunk(
   weather.fetch.id,
-  apiWeather.fetchWeatherById
+  apiWeather.fetchWeatherById,
+  isFetching
 )
 
-export const fetchWeatherByCoords = createWeatherThunk(
+export const fetchWeatherByCoords = createThunk(
   weather.fetch.coords,
-  apiWeather.fetchWeatherByCoords
+  apiWeather.fetchWeatherByCoords,
+  isFetching
 )
 
-export const getCurrentLocation = query => (dispatch, getState) => {
-  dispatch(weather.location.request(query))
+export const getCurrentLocation = createThunk(
+  weather.location,
+  apiLocation.getLocation
+)
 
-  return apiLocation.getLocation(query).then(
-    response => dispatch(weather.location.success(response)),
-    error => dispatch(weather.location.error(error))
-  )
-}
-
-export const searchCities = query => (dispatch, getState) => {
-  if (isFetching(getState()))
-    return Promise.resolve()
-  
-  dispatch(weather.cities.request(query))
-
-  apiCities.searchCities(query).then(
-    response => dispatch(weather.cities.success(response)),
-    error => dispatch(weather.cities.error(query, error))
-  )
-}
+export const searchCities = createThunk(
+  weather.cities,
+  apiCities.searchCities,
+  isFetching
+)
