@@ -1,38 +1,46 @@
 import { combineReducers } from 'redux'
-import { handleActions, combineActions as c } from 'redux-actions'
-import { weather } from './actions'
+import { handleActions } from 'redux-actions'
+import { weather, fetchRequest, fetchSuccess, fetchError } from './actions'
+import combine from '@utils/combineActions'
 
 const weatherData = handleActions({
-  [weather.fetch.success]:
+  [fetchSuccess]:
     (_, action) => ({ ...action.payload })
 }, {})
 
 const cities = handleActions({
   [weather.cities.success]:
-    (state, action) => ([ ...action.payload.result ])
+    (_, action) => ([ ...action.payload.result ])
 }, [])
 
 const lastFetchId = handleActions({
   [weather.cities.success]:
-    (state, action) => action.payload.id
+    (_, action) => action.payload.id
 }, 0)
 
 const isFetching = handleActions({
-  [c(weather.fetch.request, 
-     weather.cities.request)]: () => true,
-  [c(weather.fetch.success, 
-     weather.fetch.error, 
-     weather.cities.success, 
-     weather.cities.error)]: () => false
+  [combine(
+    fetchSuccess, 
+    weather.cities.request
+  )]: () => true,
+  [combine(
+    fetchSuccess, 
+    fetchError,
+    weather.cities.success, 
+    weather.cities.error
+  )]: () => false
 }, false)
 
 const isFetched = handleActions({
-  [weather.fetch.success]: () => true
+  [fetchSuccess]: () => true
 }, false)
 
-const fetchError = handleActions({
-  [weather.fetch.error]: (_, action) => action.payload,
-  [c(weather.fetch.success, weather.fetch.request)]: () => null,
+const fetchErrorName = handleActions({
+  [fetchError]: (_, action) => action.payload,
+  [combine(
+    fetchRequest,
+    fetchSuccess
+  )]: () => null,
 }, null)
 
 const scale = handleActions({
@@ -43,11 +51,19 @@ const scale = handleActions({
 }, 'C')
 
 const userCoords = handleActions({
-  [weather.location.success]: (state, {payload: {coords}}) => ({
+  [weather.location.success]: (_, {payload: {coords}}) => ({
     latitude: coords.latitude,
     longitude: coords.longitude
   })
 }, {latitude: null, longitude: null})
+
+const fetchedByCoordinates = handleActions({
+  [weather.fetch.coords.success]: () => true,
+  [combine(
+    weather.fetch.id.success,
+    weather.fetch.name.success
+  )]: () => false
+}, false)
 
 const citiesData = combineReducers({
   cities,
@@ -60,8 +76,9 @@ const reducer = combineReducers({
   scale,
   isFetching,
   isFetched,
-  fetchError,
-  userCoords
+  fetchErrorName,
+  userCoords,
+  fetchedByCoordinates
 })
 
 export default reducer

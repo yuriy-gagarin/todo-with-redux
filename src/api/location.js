@@ -4,7 +4,8 @@ export const getLocation = () => {
   return new Promise((resolve, reject) => (
     navigator.geolocation.getCurrentPosition(
       position => resolve(position),
-      error => reject(error)
+      error => reject(error),
+      {timeout: 5000}
     )
   ))
 }

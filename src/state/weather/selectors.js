@@ -12,7 +12,7 @@ export const scale = state =>
   state.weather.scale
 
 export const fetchError = state =>
-  state.weather.fetchError
+  state.weather.fetchErrorName
 
 export const cities = state =>
   state.weather.citiesData.cities
@@ -25,6 +25,9 @@ export const data = state =>
 
 export const userCoords = state =>
   state.weather.userCoords
+
+export const fetchedByCoordinates = state =>
+  state.weather.fetchedByCoordinates
 
 export const weather = state =>
   data(state).weather

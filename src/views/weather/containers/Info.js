@@ -9,17 +9,18 @@ const InfoContainer = (props) => (
 )
 
 const selectors = state => ({
-  isFetched:     get.isFetched(state),
-  temp:          get.convertedTemperature(state),
-  scale:         get.scale(state),
-  name:          get.name(state),
-  countryCode:   get.countryCode(state),
-  clouds:        get.clouds(state),
-  pressure:      get.pressure(state),
-  humidity:      get.humidity(state),
-  windSpeed:     get.windSpeed(state),
-  windDirection: get.windDirection(state),
-  weather:       get.weather(state),
+  isFetched:            get.isFetched(state),
+  temp:                 get.convertedTemperature(state),
+  scale:                get.scale(state),
+  name:                 get.name(state),
+  countryCode:          get.countryCode(state),
+  clouds:               get.clouds(state),
+  pressure:             get.pressure(state),
+  humidity:             get.humidity(state),
+  windSpeed:            get.windSpeed(state),
+  windDirection:        get.windDirection(state),
+  weather:              get.weather(state),
+  fetchedByCoordinates: get.fetchedByCoordinates(state)
 })
 
 export default connect(selectors)(InfoContainer)

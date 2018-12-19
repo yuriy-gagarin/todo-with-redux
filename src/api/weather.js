@@ -1,5 +1,4 @@
 import queryString from 'query-string'
-import * as locationApi from './location'
 import * as keys from 'keys'
 
 const WEATHER_URI = 'http://api.openweathermap.org/data/2.5/weather'

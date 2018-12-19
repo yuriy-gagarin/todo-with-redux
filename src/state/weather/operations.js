@@ -4,21 +4,32 @@ import * as apiCities from '@api/cities'
 import * as apiLocation from '@api/location'
 import { isFetching } from './selectors'
 
-const createWeatherThunk = apiMethod => query => (dispatch, getState) => {
+const createWeatherThunk = (actionCreator, apiMethod) => query => (dispatch, getState) => {
   if (isFetching(getState()))
     return Promise.resolve()
 
-  dispatch(weather.fetch.request(query))
+  dispatch(actionCreator.request(query))
 
   apiMethod(query).then(
-    response => dispatch(weather.fetch.success(response)),
-    error => dispatch(weather.fetch.error(query, error))
+    response => dispatch(actionCreator.success(response)),
+    error => dispatch(actionCreator.error(query, error))
   )
 }
 
-export const fetchWeather = createWeatherThunk(apiWeather.fetchWeather)
-export const fetchWeatherById = createWeatherThunk(apiWeather.fetchWeatherById)
-export const fetchWeatherByCoords = createWeatherThunk(apiWeather.fetchWeatherByCoords)
+export const fetchWeather = createWeatherThunk(
+  weather.fetch.name,
+  apiWeather.fetchWeather
+)
+
+export const fetchWeatherById = createWeatherThunk(
+  weather.fetch.id,
+  apiWeather.fetchWeatherById
+)
+
+export const fetchWeatherByCoords = createWeatherThunk(
+  weather.fetch.coords,
+  apiWeather.fetchWeatherByCoords
+)
 
 export const getCurrentLocation = query => (dispatch, getState) => {
   dispatch(weather.location.request(query))

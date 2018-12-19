@@ -24,9 +24,9 @@ export const { todo } = createActions({
       ERROR: (filter, errorMessage = '') => ({ filter, errorMessage }),
     },
     REMOVE_ALL: {
-      REQUEST: () => ({}),
-      SUCCESS: () => ({}),
-      ERROR: () => ({})
+      REQUEST: null,
+      SUCCESS: null,
+      ERROR: null
     },
     SWITCH_FILTER: filter => ({ filter })
   }
