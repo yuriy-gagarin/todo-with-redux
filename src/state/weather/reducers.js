@@ -20,7 +20,7 @@ const lastFetchId = handleActions({
 
 const isFetching = handleActions({
   [combine(
-    fetchSuccess, 
+    fetchRequest,
     weather.cities.request
   )]: () => true,
   [combine(

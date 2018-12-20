@@ -6,8 +6,10 @@ import toString from 'redux-actions/src/utils/toString';
 import isString from 'redux-actions/src/utils/isString';
 import { ACTION_TYPE_DELIMITER } from 'redux-actions/src/constants';
 
+import isPlainObject from 'redux-actions/src/utils/isPlainObject'
+
 function isValidActionType(type) {
-  return isString(type) || isFunction(type) || isSymbol(type);
+  return isString(type) || isFunction(type) || isSymbol(type) || isPlainObject(type);
 }
 
 function isValidActionTypes(types) {
@@ -25,7 +27,5 @@ export default function combineActions(...actionsTypes) {
   const combinedActionType = actionsTypes
     .map(toString)
     .join(ACTION_TYPE_DELIMITER);
-  const dummyActionCreator = () => { throw Error('don\'t call this...') }
-  dummyActionCreator.toString = () => combinedActionType
-  return dummyActionCreator;
+  return { toString: () => combinedActionType };
 }

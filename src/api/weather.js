@@ -12,29 +12,21 @@ const createIdQuery = query =>
 const createCoordsQuery = (query) =>
   `${WEATHER_URI}/?${queryString.stringify({lat: query.latitude, lon: query.longitude, appid: keys.openweathermap})}`
 
-export const fetchWeather = query => (
-  fetch(createStringQuery(query))
-    .then(res => res.json())
-    .then(res => {
-      if (res.cod !== 200) throw res
-      return res
-    })
-)
-
-export const fetchWeatherById = query => (
-  fetch(createIdQuery(query))
-  .then(res => res.json())
-  .then(res => {
-    if (res.cod !== 200) throw res
-    return res
-  })
-)
-
-export const fetchWeatherByCoords = query => {
-  return fetch(createCoordsQuery(query))
-  .then(res => res.json())
-  .then(res => {
-    if (res.cod !== 200) throw res
-    return res
-  })
+const createFetch = queryCreator => async query => {
+  const res = await fetch(queryCreator(query))
+  const json = res.json()
+  if (json.cod !== 200) throw json
+  return json
 }
+
+export const fetchWeather = createFetch(
+  createStringQuery
+)
+
+export const fetchWeatherById = createFetch(
+  createIdQuery
+)
+
+export const fetchWeatherByCoords = createFetch(
+  createCoordsQuery
+)
