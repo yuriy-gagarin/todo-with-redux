@@ -59,6 +59,10 @@ ol {
   padding: 0;
 }
 
+ul {
+  list-style: none;
+}
+
 html,
 body {
   width: 100%;
@@ -110,6 +114,11 @@ html {
 
 code {
   font-family: $font-stack-code;
+}
+
+.has-to-scroll {
+  overflow: scroll;
+  height: 100%;
 }
 
 #root {
@@ -199,7 +208,7 @@ code {
   z-index: -1;
   @media screen and (min-width: 700px) {
     // border-radius: 10px;
-    background-position: top center;
+    background-attachment: scroll;
   }
 }
 
@@ -229,14 +238,17 @@ code {
   padding-left: 10px;
 }
 
-.LoadingSpinner {
+.spinning {
+  animation: spinning 1s cubic-bezier(0.18, 0.89, 0.57, 1.09) infinite;
+}
+
+.small-spinner {
   opacity: .5;
   position: absolute;
   width: $spinner_size;
   height: $spinner_size;
   right: 0;
   bottom: 0;
-  animation: spinning 2s linear infinite;
 }
 
 .ErrorMessage {
@@ -282,4 +294,40 @@ code {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.bouncing {
+  animation: bouncing 1.3s ease infinite;
+}
+
+@keyframes bouncing {
+  0%   { 
+    transform: scale(1,1) translateY(0); 
+  }
+  14%  {
+    transform: scale(1.1,.9) translateY(0); 
+  }
+  33%  {
+    transform: scale(.9,1.1) translateY(-23px); 
+  }
+  50%  {
+    transform: scale(1.02,.98) translateY(0); 
+  }
+  57%  {
+    transform: scale(1.02,.98) translateY(-3px);
+  }
+  65%  {
+    transform: scale(1,1) translateY(0); 
+  }
+  100% {
+    transform: scale(1,1) translateY(0); 
+  }
+}
+
+.FizzBuzz {
+  position: relative;
+}
+
+.FizzBuzz::before {
+  background-image: url(https://source.unsplash.com/random/1000x1000/?cookies);
 }

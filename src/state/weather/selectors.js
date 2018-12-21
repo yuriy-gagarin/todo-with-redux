@@ -26,8 +26,11 @@ export const data = state =>
 export const userCoords = state =>
   state.weather.userCoords
 
-export const fetchedByCoordinates = state =>
-  state.weather.fetchedByCoordinates
+export const lastFetchMethod = state =>
+  state.weather.lastFetchMethod
+
+export const gettingLocation = state =>
+  state.weather.gettingLocation
 
 export const weather = state =>
   data(state).weather

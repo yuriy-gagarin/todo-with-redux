@@ -4,7 +4,7 @@ import * as apiCities from '@api/cities'
 import * as apiLocation from '@api/location'
 import { isFetching } from './selectors'
 
-const createThunk = (actionCreator, apiMethod, check = () => false) => (
+const createThunk = (actionCreator, apiMethod, check = state => false) => (
   query => (dispatch, getState) => {
     if (check(getState()))
       return Promise.resolve()
@@ -46,3 +46,5 @@ export const searchCities = createThunk(
   apiCities.searchCities,
   isFetching
 )
+
+export const changeScale = scale => dispatch => dispatch(weather.setScale(scale))

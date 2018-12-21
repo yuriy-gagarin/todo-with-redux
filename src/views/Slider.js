@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { debounce } from 'lodash'
 
 const _arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 let isScrolling
@@ -37,6 +36,7 @@ const Slider = (props) => {
   }
   
   const onKeydown = event => {
+    if (window.innerWidth > 700) return
     if (!_arrowKeys.includes(event.key)) return
     event.preventDefault()
     if (event.key === 'ArrowLeft') {
@@ -58,6 +58,7 @@ const Slider = (props) => {
 
   // moving vertically scrolls the content horizontally
   const onWheel = event => {
+    if (window.innerWidth > 700) return
     const mustScroll = Array.from(document.querySelectorAll('.has-to-scroll'))
     if (mustScroll.some(elem => elem.contains(event.target))) return
     event.preventDefault()

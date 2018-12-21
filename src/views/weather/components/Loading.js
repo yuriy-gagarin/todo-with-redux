@@ -1,8 +1,10 @@
 import React from 'react'
 
+import { LoadingIcon } from '@views/shared/icons'
+
 const Loading = () => (
   <div className='no-todos slide-up'>
-    <img className='spinning' alt='' src="https://img.icons8.com/material/48/000000/spinner-frame-4.png" />
+    <LoadingIcon />
     <p className='loading-text slide-up'>Loading...</p>
   </div>
 )

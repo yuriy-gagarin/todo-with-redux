@@ -16,7 +16,7 @@ const cities = handleActions({
 const lastFetchId = handleActions({
   [weather.cities.success]:
     (_, action) => action.payload.id
-}, 0)
+}, null)
 
 const isFetching = handleActions({
   [combine(
@@ -44,7 +44,7 @@ const fetchErrorName = handleActions({
 }, null)
 
 const scale = handleActions({
-  [weather.change_scale]: scale => {
+  [weather.setScale]: (_, {payload: {scale}}) => {
     const scales = ['K', 'C', 'F']
     return scales.includes(scale) ? scale : 'C'
   }
@@ -57,11 +57,17 @@ const userCoords = handleActions({
   })
 }, {latitude: null, longitude: null})
 
-const fetchedByCoordinates = handleActions({
-  [weather.fetch.coords.success]: () => true,
+const lastFetchMethod = handleActions({
+  [weather.fetch.coords.success]: () => 'coords',
+  [weather.fetch.id.success]: () => 'id',
+  [weather.fetch.name.success]: () => 'name'
+}, null)
+
+const gettingLocation = handleActions({
+  [weather.location.request]: () => true,
   [combine(
-    weather.fetch.id.success,
-    weather.fetch.name.success
+    weather.location.success,
+    weather.location.error
   )]: () => false
 }, false)
 
@@ -78,7 +84,8 @@ const reducer = combineReducers({
   isFetched,
   fetchErrorName,
   userCoords,
-  fetchedByCoordinates
+  lastFetchMethod,
+  gettingLocation
 })
 
 export default reducer

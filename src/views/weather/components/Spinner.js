@@ -1,9 +1,10 @@
 import React from 'react'
 
+import { LoadingIconSmall } from '@views/shared/icons'
+
 const Spinner = ({isFetching}) => (
   isFetching ?
-  <img className='LoadingSpinner spinning' alt=''
-    src="https://img.icons8.com/material/48/000000/spinner-frame-4.png" /> :
+  <LoadingIconSmall className='LoadingSpinner' /> :
   null
 )
 

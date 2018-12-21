@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { selectors } from '@state/todos'
 import { operations } from '@state/todos'
 
 const Links = ({filter, switchFilter, removeAllTodos}) => {
